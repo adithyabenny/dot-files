@@ -1,0 +1,29 @@
+# Turn welcome message off
+startup_message off
+
+# If a window goes unresponsive, don't block the whole session waiting for it
+nonblock on
+
+# Use X scrolling mechanism
+termcapinfo xterm* ti@:te@
+
+# Fix for residual editor text
+altscreen on
+
+# Detach on hangup
+autodetach on
+
+# Define a bigger scrollback, default is 100 lines
+defscrollback 10000
+
+# Start at window 1 instead of 0
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
+# Status bar
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.gW} %-w%{.rW}%n:%t%{-}%+w %= %D, %c, %d %M "
+
