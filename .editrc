@@ -1,0 +1,12 @@
+# up/down for reverse/forward history search
+bind "\e[A" ed-search-prev-history
+bind "\e[B" ed-search-next-history
+# Ctrl-W erasing cursor to start of word (Alt-D for end of word)
+bind "^W" ed-delete-prev-word
+# Ctrl-U/K for erasing cursor to start/end of line
+bind "^U" vi-kill-line-prev
+bind "^K" ed-kill-line
+# use ctrl left/rigt to skip over words
+bind "\e[1;5D" vi-prev-word
+bind "\e[1;5C" vi-next-word
+
