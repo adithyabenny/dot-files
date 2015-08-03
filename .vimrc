@@ -1,20 +1,20 @@
-" Indentation
-filetype plugin indent on   " enable the default indent plugin
-set autoindent              " newline has the same indentation as the present line
-set expandtab               " tabs are spaces
-set shiftwidth=2            " number of spaces to move when using << or >>
-set softtabstop=2           " number of spaces in tab when editing
-set tabstop=2               " number of visual spaces per TAB
-
-
 " Settings
 set foldenable              " enable folding
 set foldlevelstart=10       " open most folds by default
 set foldnestmax=10          " 10 nested fold max
 set foldmethod=indent       " fold based on indent level
 let mapleader=","           " leader is comma
+
+
+" Indentation
+filetype plugin indent on   " enable the default indent plugin
+set expandtab               " tabs are spaces
+set shiftwidth=2            " number of spaces to move when using << or >>
+set softtabstop=2           " number of spaces in tab when editing
+set tabstop=2               " number of visual spaces per TAB
 set paste                   " do not automatically indent pasted text
 set pastetoggle=<F2>        " toggle option to paste text unmodified
+set autoindent              " newline has the same indentation as the present line
 
 
 " Highlight
