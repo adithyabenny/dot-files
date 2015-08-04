@@ -82,6 +82,10 @@ ipp() {
   done
 }
 
+pipp() {
+  curl icanhazip.com
+}
+
 share() {
   temp="/tmp/myshare-$RANDOM"
   mkdir -p $temp &>/dev/null
