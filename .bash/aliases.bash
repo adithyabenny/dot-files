@@ -83,7 +83,7 @@ ipp() {
 }
 
 pipp() {
-  curl icanhazip.com
+  curl icanhazip.com 2>/dev/null
 }
 
 share() {
