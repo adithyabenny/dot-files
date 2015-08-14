@@ -28,7 +28,7 @@ alias P=" python -mjson.tool"
 
 alias afind='ack-grep -i --nojs --nocss'
 alias axel='axel -a -n8'
-alias geoip='geoiplookup -f /usr/share/GeoIP/GeoLiteCity.dat '
+alias geoip='geoiplookup -f /usr/share/GeoIP/GeoIPCity.dat '
 alias pb="curl -s -F 'paste=<-' http://pb.mittu.me/"
 alias port='sudo netstat -tulpn'
 alias x=extract
