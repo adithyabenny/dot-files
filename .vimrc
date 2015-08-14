@@ -12,7 +12,6 @@ set expandtab               " tabs are spaces
 set shiftwidth=2            " number of spaces to move when using << or >>
 set softtabstop=2           " number of spaces in tab when editing
 set tabstop=2               " number of visual spaces per TAB
-set paste                   " do not automatically indent pasted text
 set pastetoggle=<F2>        " toggle option to paste text unmodified
 set autoindent              " newline has the same indentation as the present line
 
