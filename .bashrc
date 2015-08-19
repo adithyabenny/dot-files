@@ -17,14 +17,8 @@ if [ -f ~/.bash/git-prompt.sh ] ; then
 fi
 export GIT_PS1_SHOWDIRTYSTATE=true
 
-# formulate the hostname to be shown
-if [ `hostname | cut -d '.' -f 1` == "sentinel" ]; then
-  hostname=`hostname | cut -d '.' -f 2`
-else
-  hostname=`hostname | cut -d '.' -f 1`
-fi
 # set the prompt string
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;32m\]@$hostname\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
 
 # enable color support for the commonly used binaries
 if [ -x /usr/bin/dircolors ] ; then
