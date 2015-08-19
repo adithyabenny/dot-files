@@ -56,6 +56,9 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+# Golang specific
+export GOPATH="$HOME/go"
+
 # list of files to source
 for file in ~/.bash/*.bash ; do
  if [ -f "$file" ] ; then
