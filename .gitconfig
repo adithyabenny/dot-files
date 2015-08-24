@@ -1,0 +1,24 @@
+[color]
+	ui = true
+[color "branch"]
+	current = yellow bold reverse
+	local = yellow bold
+	remote = green bold
+[color "diff"]
+	meta = white
+	whitespace = red reverse
+	frag = blue bold
+	old = red
+	new = green
+[color "status"]
+	added = yellow bold
+	changed = green bold
+	untracked = cyan bold
+[merge]
+	tool = meld
+
+[alias]
+	lg = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
+	lgl = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
+[push]
+	default = current
