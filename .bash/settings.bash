@@ -20,4 +20,3 @@ shopt -s nocaseglob             # let file name expansions be case insensitive
 
 # history buffer to be flushed after every command
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
-

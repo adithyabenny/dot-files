@@ -76,4 +76,3 @@ for i in "${path_list[@]}" ; do
       export PATH="$PATH:$i" ;;
   esac
 done
-

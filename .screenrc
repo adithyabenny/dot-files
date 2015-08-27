@@ -26,4 +26,3 @@ screen 1
 hardstatus on
 hardstatus alwayslastline
 hardstatus string "%{.gW} %-w%{.rW}%n:%t%{-}%+w %= %D, %c, %d %M "
-

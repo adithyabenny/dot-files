@@ -73,4 +73,3 @@ _cssh()
   return 0
 }
 complete -F _cssh cssh crsh ctel
-

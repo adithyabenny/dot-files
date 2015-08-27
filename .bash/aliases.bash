@@ -138,4 +138,3 @@ share() {
   cd - &>/dev/null
   rm -rf $temp &>/dev/null
 }
-

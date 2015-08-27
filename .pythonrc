@@ -192,4 +192,3 @@ __c.interact(banner=WELCOME)
 
 # Exit the Python shell on exiting the InteractiveConsole
 sys.exit()
-
