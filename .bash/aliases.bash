@@ -6,10 +6,7 @@ alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 alias ..5='cd ../../../../..'
 
-alias osv='cat /etc/*-release | sort | uniq'
-
 alias cp='cp --verbose'
-alias diff='colordiff'
 alias dig='dig +short'
 alias l='ls -CF'
 alias la='ls -A'
@@ -18,19 +15,40 @@ alias lh='ls -d .??* 2>/dev/null'
 alias ll='ls -alFh'
 alias mv='mv --verbose'
 alias mkdir='mkdir -pv'
-alias rm='rm --verbose'
+alias osv='cat /etc/*-release | sort | uniq'
+alias port='sudo netstat -tulpn'
 alias please='sudo $(history -p \!\!)'
+alias rm='rm --verbose'
 alias sudo='sudo '
 alias service='sudo service'
 alias systemctl='sudo systemctl'
 
-alias P=" python -mjson.tool"
+if [ -f /etc/centos-release ] ; then
+  DISTRO='centos'
+elif [ -f /etc/lsb-release ] ; then
+  DISTRO='ubuntu'
+fi
+case "$DISTRO" in
+  centos)
+    if hash ack-grep 2>/dev/null ; then
+      alias afind='ack-grep -i --nojs --nocss'
+    fi
+    ;;
+  ubuntu)
+    if hash ack 2>/dev/null ; then
+      alias afind='ack -i --nojs --nocss'
+    fi
+    ;;
+esac
 
-alias afind='ack-grep -i --nojs --nocss'
-alias axel='axel -a -n8'
-alias geoip='geoiplookup -f /usr/share/GeoIP/GeoIPCity.dat '
+if hash colordiff 2>/dev/null ; then
+  alias diff='colordiff'
+fi
+if hash geoiplookup 2>/dev/null ; then
+  alias geoip='geoiplookup -f /usr/share/GeoIP/GeoIPCity.dat '
+fi
+alias P="python -mjson.tool"
 alias pb="curl -s -F 'paste=<-' http://pb.mittu.me/"
-alias port='sudo netstat -tulpn'
 alias x=extract
 
 
