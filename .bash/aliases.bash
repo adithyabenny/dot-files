@@ -60,7 +60,7 @@ ctc() {
   else
     prog='cat'
   fi
-  sed -e 's/#.*$//' -e '/^$/d' $1 | $prog
+  sed -e 's/#.*$//' -e '/^\s*$/d' $1 | $prog
 }
 
 extract() {
