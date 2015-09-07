@@ -23,24 +23,9 @@ alias sudo='sudo '
 alias service='sudo service'
 alias systemctl='sudo systemctl'
 
-if [ -f /etc/centos-release ] ; then
-  DISTRO='centos'
-elif [ -f /etc/lsb-release ] ; then
-  DISTRO='ubuntu'
+if hash ack 2>/dev/null ; then
+  alias afind='ack -i --nojs --nocss'
 fi
-case "$DISTRO" in
-  centos)
-    if hash ack-grep 2>/dev/null ; then
-      alias afind='ack-grep -i --nojs --nocss'
-    fi
-    ;;
-  ubuntu)
-    if hash ack 2>/dev/null ; then
-      alias afind='ack -i --nojs --nocss'
-    fi
-    ;;
-esac
-
 if hash colordiff 2>/dev/null ; then
   alias diff='colordiff'
 fi
