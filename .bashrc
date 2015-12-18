@@ -61,6 +61,9 @@ export GOPATH="$HOME/go"
 export PATH="$PATH:/usr/local/go/bin"
 export PATH="$PATH:$GOPATH/bin"
 
+# Android specific
+export PATH="$PATH:$HOME/Android/Sdk/platform-tools"
+
 # list of files to source
 for file in ~/.bash/*.bash ; do
  if [ -f "$file" ] ; then
