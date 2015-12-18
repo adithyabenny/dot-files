@@ -58,6 +58,8 @@ export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # Golang specific
 export GOPATH="$HOME/go"
+export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$GOPATH/bin"
 
 # list of files to source
 for file in ~/.bash/*.bash ; do
