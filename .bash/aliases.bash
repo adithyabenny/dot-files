@@ -17,11 +17,11 @@ alias mv='mv --verbose'
 alias mkdir='mkdir -pv'
 alias osv='cat /etc/*-release | sort | uniq'
 alias port='sudo netstat -tulpn'
-alias please='sudo $(history -p \!\!)'
+alias pls='sudo $(history -p \!\!)'
 alias rm='rm --verbose'
 alias sudo='sudo '
+alias scl='sudo systemctl'
 alias service='sudo service'
-alias systemctl='sudo systemctl'
 
 if hash ack 2>/dev/null ; then
   alias afind='ack -i --nojs --nocss'
