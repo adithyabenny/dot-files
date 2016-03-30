@@ -31,7 +31,6 @@ set smartcase               " search is case sensitive if it has both upper and 
 " move vertically down by visual line
   nnoremap j gj
   nnoremap k gk
-set cursorline              " highlight current line
 set number                  " show line numbers
 set scrolloff=10            " number of lines to be shown above and below the cursor
 set showcmd                 " show information about the current command going on
