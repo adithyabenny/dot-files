@@ -91,38 +91,3 @@ ipp() {
 pipp() {
   curl icanhazip.com 2>/dev/null
 }
-
-share() {
-  temp="/tmp/myshare-$RANDOM"
-  mkdir -p $temp &>/dev/null
-  for f in "$@" ; do
-    path=$(realpath "$f")
-    name=$(basename "$f")
-    ln -s "$path" "$temp/$name"
-  done
-  cd $temp
-
-  port=8000
-  result=$(netstat -tulpn 2>/dev/null | grep "$port")
-  while [ -n "$result" ] ; do
-    if [ -n "$result" ] ; then
-      ((port++))
-    fi
-      result=$(netstat -tulpn 2>/dev/null | grep "$port")
-  done
-
-  netstat -i | tail -n+3 | awk '{print $1}' | grep -v "lo" >$temp/interfaces && echo lo >>$temp/interfaces
-  cat interfaces | while read interface ; do
-    ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -c 6-)
-    if [ -n "$ip" ] ; then
-      echo "Starting server at http://$ip:$port/ ..."
-      break
-    fi
-  done
-  rm interfaces &>/dev/null
-
-  python2 -m SimpleHTTPServer $port 2>/dev/null
-
-  cd - &>/dev/null
-  rm -rf $temp &>/dev/null
-}
