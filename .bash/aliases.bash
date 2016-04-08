@@ -34,8 +34,9 @@ fi
 if hash geoiplookup 2>/dev/null ; then
   alias geoip='geoiplookup -f /usr/share/GeoIP/GeoIPCity.dat '
 fi
+
 alias P="python -mjson.tool"
-alias pb="curl -s -F 'paste=<-' http://pb.mittu.me/"
+alias pb="curl -F 'sprunge=<-' http://sprunge.us"
 alias x=extract
 
 
