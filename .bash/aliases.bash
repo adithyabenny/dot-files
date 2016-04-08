@@ -20,11 +20,13 @@ alias port='sudo netstat -tulpn'
 alias pls='sudo $(history -p \!\!)'
 alias rm='rm --verbose'
 alias sudo='sudo '
-alias scl='sudo systemctl'
 alias service='sudo service'
 
 if hash ack 2>/dev/null ; then
   alias afind='ack -i --nojs --nocss'
+fi
+if hash systemctl 2>/dev/null ; then
+  alias scl='sudo systemctl'
 fi
 if hash colordiff 2>/dev/null ; then
   alias diff='colordiff'
