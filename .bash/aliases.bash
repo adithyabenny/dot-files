@@ -22,9 +22,6 @@ alias rm='rm --verbose'
 alias sudo='sudo '
 alias service='sudo service'
 
-if hash ack 2>/dev/null ; then
-  alias afind='ack -i --nojs --nocss'
-fi
 if hash systemctl 2>/dev/null ; then
   alias scl='sudo systemctl'
 fi
