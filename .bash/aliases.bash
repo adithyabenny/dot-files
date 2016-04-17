@@ -24,6 +24,8 @@ alias service='sudo service'
 
 if hash systemctl 2>/dev/null ; then
   alias scl='sudo systemctl'
+  source /usr/share/bash-completion/completions/systemctl
+  complete -F _systemctl scl
 fi
 if hash colordiff 2>/dev/null ; then
   alias diff='colordiff'
