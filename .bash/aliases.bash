@@ -57,16 +57,16 @@ extract() {
       *.tar.gz) tar vxzf "$1" ;;
       *.tar.Z) tar vxzf "$1" ;;
       *.bz2) bunzip2 -v "$1" ;;
-      *.rar) 7z x "$1" ;;
+      *.rar) 7za x "$1" ;;
       *.gz) gunzip -v "$1" ;;
-      *.jar) 7z x "$1" ;;
+      *.jar) 7za x "$1" ;;
       *.tar) tar vxf "$1" ;;
       *.tar.xz) tar vxf "$1" ;;
       *.tbz2) tar vxjf "$1" ;;
       *.tgz) tar vxzf "$1" ;;
-      *.zip) 7z x "$1" ;;
+      *.zip) 7za x "$1" ;;
       *.Z) uncompress -v "$1" ;;
-      *.7z) 7z x "$1" ;;
+      *.7z) 7za x "$1" ;;
       *) echo "'$1' cannot be extracted" ;;
     esac
   else
