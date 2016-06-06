@@ -7,8 +7,9 @@ export HISTTIMEFORMAT="%d/%m/%y %T "        # timestamp format to associate each
 # shell options
 shopt -s autocd 2>/dev/null     # auto "cd" when entering just a path, present in 4.0 and newer versions of bash
 shopt -s cdspell                # this will correct minor spelling errors in a cd command
-shopt -s cmdhist                # force multi-line commands to be stored in the history as a single line
+shopt -s checkjobs              # defer the exit if any of the background jobs are running
 shopt -s checkwinsize           # fix line wrap on window resize
+shopt -s cmdhist                # force multi-line commands to be stored in the history as a single line
 shopt -s direxpand 2>/dev/null  # works in conjunction with `dirspell`, present in 4.2 and newer versions of bash
 shopt -s dirspell 2>/dev/null   # auto completes directory names even if there's a minor spelling mistake, present in 4.0 and newer versions of bash
 shopt -s dotglob                # consider filenames beginning with a '.' for filename expansions
