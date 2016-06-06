@@ -15,6 +15,7 @@ shopt -s dirspell 2>/dev/null   # auto completes directory names even if there's
 shopt -s dotglob                # consider filenames beginning with a '.' for filename expansions
 shopt -s expand_aliases         # expand aliases in scripts
 shopt -s extglob                # enhances pattern matching features
+shopt -s globstar               # expand "**" to match files in subdirectories as well
 shopt -s histappend             # append to history rather than overwrite (avoid histoy loss)
 shopt -s hostcomplete           # tab-completion of hostnames after @
 shopt -s nocaseglob             # let file name expansions be case insensitive
