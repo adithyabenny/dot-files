@@ -99,5 +99,5 @@ ipp() {
 }
 
 pipp() {
-  curl icanhazip.com 2>/dev/null
+  curl -s icanhazip.com
 }
