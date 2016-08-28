@@ -35,7 +35,7 @@ if hash geoiplookup 2>/dev/null ; then
 fi
 
 alias P="python -mjson.tool"
-alias pb="curl -F 'sprunge=<-' http://sprunge.us"
+alias pb="SERVER='https://pb.mittu.me' haste"
 alias x=extract
 
 
@@ -76,6 +76,17 @@ extract() {
 
 ff() {
   find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
+}
+
+haste() {
+  if [ -z "$SERVER" ] ; then
+    url="http://hastebin.com"
+  else
+    url="$SERVER"
+  fi
+  content=$(cat)
+  response=$(curl -XPOST -s -d "$content" "$url/documents")
+  awk -F '"' -v url="$url/" '{print url $4}' <<< $response
 }
 
 ipp() {
