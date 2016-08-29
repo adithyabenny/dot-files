@@ -58,3 +58,19 @@ colorscheme elflord         " set a custom color scheme
   autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
   autocmd BufWinLeave * call clearmatches()
+
+
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}    " tree explorer
+Plug 'scrooloose/syntastic'                             " syntax checker
+  set statusline+=%#WarningMsg#                         " enable highlight group 'WarningMsg'
+  set statusline+=%{SyntasticStatuslineFlag()}          " enable error flagging on the statusline
+  set statusline+=%*                                    " restore normal highlight
+  let g:syntastic_always_populate_loc_list = 1          " populate location list with the detected errors
+  let g:syntastic_auto_loc_list = 1                     " open location list only if errors are detected
+  let g:syntastic_check_on_open = 1                     " run syntax checks when buffers are loaded
+  let g:syntastic_check_on_wq = 0                       " don't syntax check before write quit
+Plug 'tpope/vim-surround'                               " quoting/parenthesizing made simple
+Plug 'scrooloose/nerdcommenter'                         " powerful comment functions
+call plug#end()
