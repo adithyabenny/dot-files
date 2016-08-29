@@ -86,7 +86,7 @@ haste() {
   fi
   content=$(cat)
   response=$(curl -XPOST -s -d "$content" "$url/documents")
-  awk -F '"' -v url="$url/" '{print url $4}' <<< $response
+  awk -F '"' -v url="$url/raw/" '{print url $4}' <<< $response
 }
 
 ipp() {
