@@ -45,6 +45,8 @@ set wildmenu                " visual autocomplete for command menu
   map <Esc>S :w !sudo tee % > /dev/null<CR>
   map <Esc>w :wq!<CR>
   map <Esc>q :q!<CR>
+" toggle spell check
+  map <F5> :setlocal spell!<CR>
 
 
 " Appearance
