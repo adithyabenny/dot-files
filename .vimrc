@@ -73,4 +73,5 @@ Plug 'scrooloose/syntastic'                             " syntax checker
   let g:syntastic_check_on_wq = 0                       " don't syntax check before write quit
 Plug 'tpope/vim-surround'                               " quoting/parenthesizing made simple
 Plug 'scrooloose/nerdcommenter'                         " powerful comment functions
+Plug 'airblade/vim-gitgutter'                           " show git diff in the sign column
 call plug#end()
