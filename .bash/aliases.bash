@@ -90,7 +90,7 @@ haste() {
 }
 
 ipp() {
-  netstat -i | tail -n+3 | awk '{print $1'} | grep -v "lo" | while read interface ; do
+  ip link show | grep -v "^ " | awk '{print $2}' | cut -d':' -f1 | grep -v "lo" | while read interface ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
     if [ -n "$ip" ] ; then
       echo -e "$interface\t$ip"
