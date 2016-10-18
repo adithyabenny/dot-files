@@ -21,6 +21,7 @@ alias pls='sudo $(history -p \!\!)'
 alias rm='rm --verbose'
 alias sudo='sudo '
 alias service='sudo service'
+alias watch='watch --color '
 
 if hash systemctl 2>/dev/null ; then
   alias scl='sudo systemctl'
