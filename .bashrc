@@ -18,7 +18,7 @@ fi
 export GIT_PS1_SHOWDIRTYSTATE=true
 
 # set the prompt string
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
+PS1='\[\033[01;33m\]${debian_chroot:+($debian_chroot)}\[\033[01;34m\]\u\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
 
 # enable color support for the commonly used binaries
 if [ -x /usr/bin/dircolors ] ; then
