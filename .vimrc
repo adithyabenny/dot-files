@@ -63,6 +63,8 @@ colorscheme elflord         " set a custom color scheme
 
 
 " Plugins
+" execute the below command for setting up vim-plug, a minimalistic Vim plugin manager
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'}    " tree explorer
 Plug 'scrooloose/syntastic'                             " syntax checker
