@@ -13,7 +13,7 @@ fi
 
 # load Git info
 if [ -f ~/.bash/git-prompt.sh ] ; then
-  . ~/.bash/git-prompt.sh
+  source ~/.bash/git-prompt.sh
 fi
 export GIT_PS1_SHOWDIRTYSTATE=true
 
@@ -21,27 +21,41 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 PS1='\[\033[01;33m\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
 
 # enable color support for the commonly used binaries
-if [ -x /usr/bin/dircolors ] ; then
-  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-  alias ls='ls --color=auto'
-  alias dir='dir --color=auto'
-  alias vdir='vdir --color=auto'
+if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+  if [ -x /usr/bin/dircolors ] ; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export CLICOLOR=1
+  export LSCOLORS=GxFxCxDxBxegedabagaced
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
 
 # enable bash completion in interactive shells
-if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ] ; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ] ; then
-    . /etc/bash_completion
+if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+  if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ] ; then
+      source /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ] ; then
+      source /etc/bash_completion
+    fi
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  if [ -f $(brew --prefix)/etc/bash_completion ] ; then
+    source $(brew --prefix)/etc/bash_completion
   fi
 fi
 
 # load bindings
-export INPUTRC="~/.inputrc"
+export INPUTRC="$HOME/.inputrc"
 
 # default text editor
 export EDITOR="vim"
@@ -49,25 +63,10 @@ export EDITOR="vim"
 # set the MySQL prompt
 export MYSQL_PS1="\u@\h [\d]> "
 
-# Python specific
-export PYTHONSTARTUP="$HOME/.pythonrc"
-
-# RVM specific
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-# Golang specific
-export GOPATH="$HOME/go"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$GOPATH/bin"
-
-# Android specific
-export PATH="$PATH:$HOME/Android/Sdk/platform-tools"
-
 # list of files to source
 for file in ~/.bash/*.bash ; do
  if [ -f "$file" ] ; then
-   . "$file"
+   source "$file"
  fi
 done
 
@@ -81,3 +80,31 @@ for i in "${path_list[@]}" ; do
       export PATH="$PATH:$i" ;;
   esac
 done
+
+# macOS specific
+if [[ "$OSTYPE" == "darwin"* ]] ; then
+  #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"         # coreutils
+  #export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"         # findutils
+  export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
+  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"           # gnu-tar
+  export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
+  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"           # gnu-sed
+  export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+fi
+
+# Python specific
+export PYTHONSTARTUP="$HOME/.pythonrc"
+
+# Golang specific
+export GOPATH="$HOME/go"
+if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+  export PATH="$PATH:/usr/local/go/bin"
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export PATH="$PATH:$(brew --prefix)/opt/go/libexec/bin"
+fi
+export PATH="$PATH:$GOPATH/bin"
+
+# RVM specific
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
