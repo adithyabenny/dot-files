@@ -32,6 +32,7 @@ set smartcase                                                        " search is
   nnoremap j gj
   nnoremap k gk
 set number                                                           " show line numbers
+set ruler                                                            " show line and column number in the status bar
 set scrolloff=10                                                     " number of lines to be shown above and below the cursor
 set showcmd                                                          " show information about the current command going on
 set wildmenu                                                         " visual autocomplete for command menu
