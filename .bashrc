@@ -11,7 +11,8 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ] ; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# load Git info
+# load Git info (used in the prompt below)
+# wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.bash/git-prompt.sh
 if [ -f ~/.bash/git-prompt.sh ] ; then
   source ~/.bash/git-prompt.sh
 fi
