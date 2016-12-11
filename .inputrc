@@ -1,28 +1,16 @@
-# up/down for reverse/forward history search
-"\e[A": history-search-backward
-"\e[B": history-search-forward
-# ensure that left and right continue to work correctly
-"\e[C": forward-char
-"\e[D": backward-char
-# use ctrl left/right to skip over words
-"\e[1;5D": backward-word
-"\e[1;5C": forward-word
-# prefix the line with 'sudo'
-"\es":"\C-asudo \C-e"
+"\e[A": history-search-backward                  # Up arrow does a reverse history search
+"\e[B": history-search-forward                   # Down arrow does a forward history search
+"\e[C": forward-char                             # Left key moves one character to the left
+"\e[D": backward-char                            # Right key moves one character to the right
+"\e[1;5D": backward-word                         # Ctrl-Left moves one word to the left
+"\e[1;5C": forward-word                          # Ctrl-Right moves one word to the right
+"\es":"\C-asudo \C-e"                            # Alt-S prefixes the line with `sudo` and takes the cursor to end of line
 
-# display possible completions using different colors
-set colored-stats on
-# filename matching is case insensitive
-set completion-ignore-case off
-# treat '-' and '_' as equivalent when performing filname matching
-set completion-map-case on
-# common prefixes longer than this value is replaced with an ellipsis
-set completion-prefix-display-length 2
-# don't echo character (eg. ^C) corresponding to the signal (eg. Ctrl-C)
-set echo-control-characters off
- # completed names which are symbolic links to directories have a slash appended
-set mark-symlinked-directories on
-# undo changes to history lines when newline is received
-set revert-all-at-newline on
-# character denoting the filetype is appended when listing possible completions
-set visible-stats on
+set colored-stats on                             # display possible completions using different color
+set completion-ignore-case off                   # filename matching is case sensitive
+set completion-map-case on                       # treat '-' and '_' as equivalent when performing filename matching
+set completion-prefix-display-length 2           # common prefixes longer than this value is replaced with an ellipsis
+set echo-control-characters off                  # don't echo character (eg. ^C) corresponding to the signal (eg. Ctrl-C)
+set mark-symlinked-directories on                # completed names which are symbolic links to directories have a slash appended
+set revert-all-at-newline on                     # undo changes to history lines when newline is received
+set visible-stats on                             # character denoting the filetype is appended when listing possible completions
