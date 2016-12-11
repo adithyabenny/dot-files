@@ -15,8 +15,12 @@ alias lh='ls -d .??* 2>/dev/null'
 alias ll='ls -alFh'
 alias mv='mv -v'
 alias mkdir='mkdir -pv'
-alias osv='cat /etc/*-release | sort | uniq'
-alias port='sudo netstat -tulpn'
+if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+  alias osv='cat /etc/*-release | sort | uniq'
+  alias port='sudo netstat -tulpn'
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  alias port='sudo lsof -nP -itcp -stcp:listen | grep --color=none v4'
+fi
 alias pls='sudo $(history -p \!\!)'
 alias rm='rm -v'
 alias sudo='sudo '
@@ -28,29 +32,14 @@ if hash systemctl 2>/dev/null ; then
   source /usr/share/bash-completion/completions/systemctl
   complete -F _systemctl scl
 fi
-if hash colordiff 2>/dev/null ; then
-  alias diff='colordiff'
-fi
-if hash geoiplookup 2>/dev/null ; then
-  alias geoip='geoiplookup -f /usr/share/GeoIP/GeoIPCity.dat '
-fi
 
-alias P="python -mjson.tool"
 alias pb="SERVER='https://pb.mittu.me' haste"
 alias x=extract
 
 
 # list of functions
 
-ctc() {
-  if hash pygmentize 2>/dev/null ; then
-    prog='pygmentize -g'
-  else
-    prog='cat'
-  fi
-  sed -e 's/#.*$//' -e '/^\s*$/d' $1 | $prog
-}
-
+# extract the contents of an archive
 extract() {
   if [ -f "$1" ] ; then
     case "$1" in
@@ -75,10 +64,12 @@ extract() {
   fi
 }
 
+# find file by name
 ff() {
   find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
 }
 
+# upload contents to pastebin
 haste() {
   if [ -z "$SERVER" ] ; then
     url="http://hastebin.com"
@@ -90,8 +81,10 @@ haste() {
   awk -F '"' -v url="$url/raw/" '{print url $4}' <<< $response
 }
 
+# list all interfaces and their IPs
 ipp() {
-  ip link show | grep -v "^ " | awk '{print $2}' | cut -d':' -f1 | grep -v "lo" | while read interface ; do
+  interfaces=$(ifconfig | grep mtu | awk '{print $1}' | cut -d':' -f1 | grep -v 'lo')
+  for interface in $interfaces ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
     if [ -n "$ip" ] ; then
       echo -e "$interface\t$ip"
@@ -99,6 +92,7 @@ ipp() {
   done
 }
 
+# show public IP
 pipp() {
   curl -s icanhazip.com
 }
