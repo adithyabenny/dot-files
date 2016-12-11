@@ -1,5 +1,3 @@
-# list of aliases
-
 alias ..='cd ..'
 alias ..2='cd ../..'
 alias ..3='cd ../../..'
@@ -31,9 +29,6 @@ if hash systemctl 2>/dev/null ; then
   complete -F _systemctl scl
 fi
 alias x=extract
-
-
-# list of functions
 
 # upload file to Dropbox and share the link
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
