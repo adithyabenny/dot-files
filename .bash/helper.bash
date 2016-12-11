@@ -1,34 +1,34 @@
-alias ..='cd ..'
-alias ..2='cd ../..'
-alias ..3='cd ../../..'
-alias ..4='cd ../../../..'
-alias ..5='cd ../../../../..'
-alias cp='cp -v'
-alias dig='dig +short'
-alias l='ls -CF'
-alias la='ls -A'
-alias ld='ls -d */ 2>/dev/null'
-alias lh='ls -d .??* 2>/dev/null'
-alias ll='ls -alFh'
-alias mv='mv -v'
-alias mkdir='mkdir -pv'
+alias ..='cd ..'                                                               # move 1 directory up
+alias ..2='cd ../..'                                                           # move 2 directories up
+alias ..3='cd ../../..'                                                        # move 3 directories up
+alias ..4='cd ../../../..'                                                     # move 4 directories up
+alias ..5='cd ../../../../..'                                                  # move 5 directories up
+alias cp='cp -v'                                                               # let copy always be verbose
+alias dig='dig +short'                                                         # let dig always be succinct
+alias l='ls -CF'                                                               # distinguish between file types by suffixing file name with a symbol
+alias la='ls -A'                                                               # list all files
+alias ld='ls -d */ 2>/dev/null'                                                # list only directories
+alias lh='ls -d .??* 2>/dev/null'                                              # list only hidden files
+alias ll='ls -alFh'                                                            # list all files with their details
+alias mv='mv -v'                                                               # let move always be verbose
+alias mkdir='mkdir -pv'                                                        # let mkdir always be verbose, create parent directory if it doesn't exist
 if [[ "$OSTYPE" == "linux-gnu" ]] ; then
-  alias osv='cat /etc/*-release | sort | uniq'
-  alias port='sudo netstat -tulpn'
+  alias osv='cat /etc/*-release | sort | uniq'                                 # output Linux distribution
+  alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  alias port='sudo lsof -nP -itcp -stcp:listen | grep --color=none v4'
+  alias port='sudo lsof -nP -itcp -stcp:listen | grep --color=none v4'         # show all IPv4 TCP listening ports
 fi
-alias pls='sudo $(history -p \!\!)'
-alias rm='rm -v'
-alias sudo='sudo '
-alias service='sudo service'
-alias watch='watch --color '
+alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
+alias rm='rm -v'                                                               # let remove always be verbose
+alias sudo='sudo '                                                             # required to enable auto-completion if command is prefixed with sudo
+alias service='sudo service'                                                   # let service always run with elevated privileges
+alias watch='watch --color '                                                   # let watch output always be colorized
 if hash systemctl 2>/dev/null ; then
-  alias scl='sudo systemctl'
-  source /usr/share/bash-completion/completions/systemctl
-  complete -F _systemctl scl
+  alias scl='sudo systemctl'                                                   # let systemctl always run with elevated privileges
+  source /usr/share/bash-completion/completions/systemctl                      # load auto-completion for systemctl
+  complete -F _systemctl scl                                                   # load auto-completion for its alias as well
 fi
-alias x=extract
+alias x=extract                                                                # extract the contents of an archive
 
 # upload file to Dropbox and share the link
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
