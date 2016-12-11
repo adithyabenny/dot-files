@@ -36,6 +36,29 @@ alias x=extract
 
 # list of functions
 
+# upload file to Dropbox and share the link
+# requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
+# echo "export DROPBOX_SCRIPT='<location-of-dropbox_uploader.sh>'" >>~/.bash/private.bash
+dropbox() {
+  for file in "$@" ; do
+    $DROPBOX_SCRIPT -q upload "$file" /
+    if [ $? -ne 0 ] ; then
+      echo "Upload failed.."
+      return
+    fi
+    response=$($DROPBOX_SCRIPT -q share "$file")
+    if [ $? -ne 0 ] ; then
+      echo "Sharing failed.."
+      return
+    fi
+    url="${response::-5}"
+    echo "$url"
+    if [[ "$OSTYPE" == "darwin"* ]] ; then
+      pbcopy <<< "$url"
+    fi
+  done
+}
+
 # extract the contents of an archive
 extract() {
   if [ -f "$1" ] ; then
