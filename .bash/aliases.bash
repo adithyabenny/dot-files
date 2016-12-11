@@ -30,7 +30,6 @@ if hash systemctl 2>/dev/null ; then
   source /usr/share/bash-completion/completions/systemctl
   complete -F _systemctl scl
 fi
-alias pb="SERVER='https://pb.mittu.me' haste"
 alias x=extract
 
 
@@ -89,12 +88,13 @@ ff() {
   find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
 }
 
-# upload contents to pastebin
-haste() {
-  if [ -z "$SERVER" ] ; then
+# upload contents to Haste, an open-source Node.js pastebin
+# echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
+pb() {
+  if [ -z "$PASTEBIN_URL" ] ; then
     url="http://hastebin.com"
   else
-    url="$SERVER"
+    url="$PASTEBIN_URL"
   fi
   if [[ -s /dev/stdin ]] ; then
     content=$(cat)
