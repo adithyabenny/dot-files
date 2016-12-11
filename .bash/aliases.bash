@@ -106,6 +106,14 @@ pipp() {
   curl -s icanhazip.com
 }
 
+# send push notifications to your mobile device via the web service Pushover
+# requires executable from https://github.com/erniebrodeur/pushover
+push() {
+  if hash pushover 2>/dev/null ; then
+    pushover "$*"
+  fi
+}
+
 # shorten URL using Google API
 # requires API KEY from https://developers.google.com/url-shortener
 # echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
