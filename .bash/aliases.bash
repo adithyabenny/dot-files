@@ -105,3 +105,28 @@ ipp() {
 pipp() {
   curl -s icanhazip.com
 }
+
+# shorten URL using Google API
+# requires API KEY from https://developers.google.com/url-shortener
+# echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
+shorten() {
+  if [[ -s /dev/stdin ]] ; then
+    content=$(cat)
+  else
+    if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+      return
+    elif [[ "$OSTYPE" == "darwin"* ]] ; then
+      content=$(pbpaste)
+    fi
+  fi
+  response=$(curl -s "https://www.googleapis.com/urlshortener/v1/url?key=$GOOGLE_URL_SHORTENER_API_KEY" -H "Content-Type: application/json" -d "{\"longUrl\": \"$content\"}")
+  if grep -q error <<< "$response" ; then
+    return
+  else
+    url=$(echo "$response" | sed -n 3p | cut -d'"' -f4)
+  fi
+  echo "$url"
+  if [[ "$OSTYPE" == "darwin"* ]] ; then
+    pbcopy <<< "$url"
+  fi
+}
