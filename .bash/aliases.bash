@@ -5,7 +5,6 @@ alias ..2='cd ../..'
 alias ..3='cd ../../..'
 alias ..4='cd ../../../..'
 alias ..5='cd ../../../../..'
-
 alias cp='cp -v'
 alias dig='dig +short'
 alias l='ls -CF'
@@ -26,13 +25,11 @@ alias rm='rm -v'
 alias sudo='sudo '
 alias service='sudo service'
 alias watch='watch --color '
-
 if hash systemctl 2>/dev/null ; then
   alias scl='sudo systemctl'
   source /usr/share/bash-completion/completions/systemctl
   complete -F _systemctl scl
 fi
-
 alias pb="SERVER='https://pb.mittu.me' haste"
 alias x=extract
 
@@ -76,9 +73,21 @@ haste() {
   else
     url="$SERVER"
   fi
-  content=$(cat)
+  if [[ -s /dev/stdin ]] ; then
+    content=$(cat)
+  else
+    if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+      return
+    elif [[ "$OSTYPE" == "darwin"* ]] ; then
+      content=$(pbpaste)
+    fi
+  fi
   response=$(curl -XPOST -s -d "$content" "$url/documents")
-  awk -F '"' -v url="$url/raw/" '{print url $4}' <<< $response
+  url=$(awk -F '"' -v url="$url/raw/" '{print url $4}' <<< "$response")
+  echo "$url"
+  if [[ "$OSTYPE" == "darwin"* ]] ; then
+    pbcopy <<< "$url"
+  fi
 }
 
 # list all interfaces and their IPs
