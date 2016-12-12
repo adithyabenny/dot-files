@@ -61,6 +61,9 @@ export INPUTRC="$HOME/.inputrc"
 # default text editor
 export EDITOR="vim"
 
+# search within less is case insensitive unless the pattern contains uppercase letters
+export LESS="-i"
+
 # set the MySQL prompt
 export MYSQL_PS1="\u@\h [\d]> "
 
