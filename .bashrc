@@ -22,7 +22,7 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 PS1='\[\033[01;33m\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01;32m\]@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;33m\]$(__git_ps1 "<%s>")\[\033[0m\]$ '
 
 # enable color support for the commonly used binaries
-if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   if [ -x /usr/bin/dircolors ] ; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -41,7 +41,7 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
 fi
 
 # enable bash completion in interactive shells
-if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ] ; then
       source /usr/share/bash-completion/bash_completion
@@ -102,7 +102,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # Golang specific
 export GOPATH="$HOME/go"
-if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   export PATH="$PATH:/usr/local/go/bin"
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export PATH="$PATH:$(brew --prefix)/opt/go/libexec/bin"

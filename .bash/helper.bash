@@ -12,7 +12,7 @@ alias lh='ls -d .??* 2>/dev/null'                                              #
 alias ll='ls -alFh'                                                            # list all files with their details
 alias mv='mv -v'                                                               # let move always be verbose
 alias mkdir='mkdir -pv'                                                        # let mkdir always be verbose, create parent directory if it doesn't exist
-if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   alias osv='cat /etc/*-release | sort | uniq'                                 # output Linux distribution
   alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
@@ -94,7 +94,7 @@ pb() {
   if [[ -s /dev/stdin ]] ; then
     content=$(cat)
   else
-    if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
       return
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)
@@ -139,7 +139,7 @@ shorten() {
   if [[ -s /dev/stdin ]] ; then
     content=$(cat)
   else
-    if [[ "$OSTYPE" == "linux-gnu" ]] ; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
       return
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)
