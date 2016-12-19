@@ -4,16 +4,16 @@ if [[ $- != *i* ]] ; then
 fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ] ; then
+if [[ -z "${debian_chroot:-}" ]] && [[ -r /etc/debian_chroot ]] ; then
   debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # load Git info (used in the prompt below)
 # wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -O ~/.bash/git-prompt.sh
-if [ -f ~/.bash/git-prompt.sh ] ; then
+if [[ -f ~/.bash/git-prompt.sh ]] ; then
   source ~/.bash/git-prompt.sh
 fi
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -23,7 +23,7 @@ PS1='\[\033[01;33m\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01
 
 # enable color support for the commonly used binaries
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-  if [ -x /usr/bin/dircolors ] ; then
+  if [[ -x /usr/bin/dircolors ]] ; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
@@ -43,14 +43,14 @@ fi
 # enable bash completion in interactive shells
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ] ; then
+    if [[ -f /usr/share/bash-completion/bash_completion ]] ; then
       source /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ] ; then
+    elif [[ -f /etc/bash_completion ]] ; then
       source /etc/bash_completion
     fi
   fi
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  if [ -f $(brew --prefix)/etc/bash_completion ] ; then
+  if [[ -f $(brew --prefix)/etc/bash_completion ]] ; then
     source $(brew --prefix)/etc/bash_completion
   fi
 fi
@@ -70,7 +70,7 @@ export MYSQL_PS1="\u@\h [\d]> "
 
 # list of files to source
 for file in ~/.bash/*.bash ; do
- if [ -f "$file" ] ; then
+ if [[ -f "$file" ]] ; then
    source "$file"
  fi
 done

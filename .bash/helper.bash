@@ -36,12 +36,12 @@ alias x=extract                                                                #
 dropbox() {
   for file in "$@" ; do
     $DROPBOX_SCRIPT -q upload "$file" /
-    if [ $? -ne 0 ] ; then
+    if [[ $? -ne 0 ]] ; then
       echo "Upload failed.."
       return
     fi
     response=$($DROPBOX_SCRIPT -q share "$file")
-    if [ $? -ne 0 ] ; then
+    if [[ $? -ne 0 ]] ; then
       echo "Sharing failed.."
       return
     fi
@@ -55,7 +55,7 @@ dropbox() {
 
 # extract the contents of an archive
 extract() {
-  if [ -f "$1" ] ; then
+  if [[ -f "$1" ]] ; then
     case "$1" in
       *.tar.bz2) tar vxjf "$1" ;;
       *.tar.gz) tar vxzf "$1" ;;
@@ -86,7 +86,7 @@ ff() {
 # upload contents to Haste, an open-source Node.js pastebin
 # echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
 pb() {
-  if [ -z "$PASTEBIN_URL" ] ; then
+  if [[ -z "$PASTEBIN_URL" ]] ; then
     url="http://hastebin.com"
   else
     url="$PASTEBIN_URL"
@@ -113,7 +113,7 @@ ipp() {
   interfaces=$(ifconfig | grep mtu | awk '{print $1}' | cut -d':' -f1 | grep -v 'lo')
   for interface in $interfaces ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
-    if [ -n "$ip" ] ; then
+    if [[ -n "$ip" ]] ; then
       echo -e "$interface\t$ip"
     fi
   done
