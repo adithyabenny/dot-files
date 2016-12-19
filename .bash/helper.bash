@@ -91,7 +91,7 @@ pb() {
   else
     url="$PASTEBIN_URL"
   fi
-  if [[ -s /dev/stdin ]] ; then
+  if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
     if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
@@ -136,7 +136,7 @@ push() {
 # requires API KEY from https://developers.google.com/url-shortener
 # echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
 shorten() {
-  if [[ -s /dev/stdin ]] ; then
+  if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
     if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
