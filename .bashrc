@@ -24,7 +24,11 @@ PS1='\[\033[01;33m\]${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u\[\033[01
 # enable color support for the commonly used binaries
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   if [[ -x /usr/bin/dircolors ]] ; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    if [[ -r ~/.dircolors ]] ; then
+      eval "$(dircolors -b ~/.dircolors)"
+    else
+      eval "$(dircolors -b)"
+    fi
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
