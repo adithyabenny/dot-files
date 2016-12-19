@@ -61,8 +61,9 @@ export INPUTRC="$HOME/.inputrc"
 # default text editor
 export EDITOR="vim"
 
+# enable color support within less
 # search within less is case insensitive unless the pattern contains uppercase letters
-export LESS="-i"
+export LESS="-Ri"
 
 # set the MySQL prompt
 export MYSQL_PS1="\u@\h [\d]> "
