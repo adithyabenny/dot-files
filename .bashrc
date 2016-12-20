@@ -41,6 +41,7 @@ fi
 
 # set the prompt string
 PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]$ '
+PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # enable color support for the commonly used binaries
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
