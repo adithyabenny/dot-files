@@ -57,21 +57,23 @@ dropbox() {
 extract() {
   if [[ -f "$1" ]] ; then
     case "$1" in
-      *.tar.bz2) tar vxjf "$1" ;;
-      *.tar.gz) tar vxzf "$1" ;;
-      *.tar.Z) tar vxzf "$1" ;;
-      *.bz2) bunzip2 -v "$1" ;;
-      *.rar) 7za x "$1" ;;
-      *.gz) gunzip -v "$1" ;;
-      *.jar) 7za x "$1" ;;
-      *.tar) tar vxf "$1" ;;
-      *.tar.xz) tar vxf "$1" ;;
-      *.tbz2) tar vxjf "$1" ;;
-      *.tgz) tar vxzf "$1" ;;
-      *.zip) 7za x "$1" ;;
-      *.Z) uncompress -v "$1" ;;
-      *.7z) 7za x "$1" ;;
-      *) echo "'$1' cannot be extracted" ;;
+      *.7z)       7z x "$1"               ;;
+      *.bz2)      bunzip2 "$1"            ;;
+      *.exe)      cabextract "$1"         ;;
+      *.gz)       gunzip "$1"             ;;
+      *.jar)      7z x "$1"               ;;
+      *.lzma)     unlzma "$!"             ;;
+      *.rar)      unrar x "$1"            ;;
+      *.tar)      tar vxf "$1"            ;;
+      *.tar.bz2)  tar vxjf "$1"           ;;
+      *.tbz2)     tar vxjf "$1"           ;;
+      *.tar.gz)   tar vxzf "$1"           ;;
+      *.tgz)      tar vxzf "$1"           ;;
+      *.tar.xz)   tar vxJf "$1"           ;;
+      *.xz)       unxz "$1"               ;;
+      *.zip)      unzip "$1"              ;;
+      *.Z)        uncompress "$1"         ;;
+      *) echo "'$1' cannot be extracted"  ;;
     esac
   else
     echo "'$1' is not a file"
