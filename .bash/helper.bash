@@ -38,12 +38,12 @@ dropbox() {
     $DROPBOX_SCRIPT -q upload "$file" /
     if [[ $? -ne 0 ]] ; then
       echo "Upload failed.."
-      return
+      return 2
     fi
     response=$($DROPBOX_SCRIPT -q share "$file")
     if [[ $? -ne 0 ]] ; then
       echo "Sharing failed.."
-      return
+      return 2
     fi
     url="${response::-5}"
     echo "$url"
@@ -73,10 +73,13 @@ extract() {
       *.xz)       unxz "$1"               ;;
       *.zip)      unzip "$1"              ;;
       *.Z)        uncompress "$1"         ;;
-      *) echo "'$1' cannot be extracted"  ;;
+      *)
+        echo "'$1' cannot be extracted"
+        return 2                          ;;
     esac
   else
     echo "'$1' is not a file"
+    return 2
   fi
 }
 
@@ -97,7 +100,7 @@ pb() {
     content=$(cat)
   else
     if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-      return
+      return 2
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)
     fi
@@ -142,14 +145,14 @@ shorten() {
     content=$(cat)
   else
     if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-      return
+      return 2
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)
     fi
   fi
   response=$(curl -s "https://www.googleapis.com/urlshortener/v1/url?key=$GOOGLE_URL_SHORTENER_API_KEY" -H "Content-Type: application/json" -d "{\"longUrl\": \"$content\"}")
   if grep -q error <<< "$response" ; then
-    return
+    return 2
   else
     url=$(echo "$response" | sed -n 3p | cut -d'"' -f4)
   fi
