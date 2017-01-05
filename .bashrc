@@ -81,24 +81,24 @@ export MYSQL_PS1="\u@\h [\d]> "
 
 # add the following locations to $PATH if not already present
 path_list=('/bin' '/sbin' '/usr/bin' '/usr/sbin' '/usr/local/bin' '/usr/local/sbin')
-for i in "${path_list[@]}" ; do
-  case ":${PATH:=$i}:" in
-    *":$i:"*)
+for path in "${path_list[@]}" ; do
+  case ":${PATH:=$path}:" in
+    *":$path:"*)
       ;;
     *)
-      export PATH="$PATH:$i" ;;
+      export PATH="$PATH:$path" ;;
   esac
 done
 
 # macOS specific
 if [[ "$OSTYPE" == "darwin"* ]] ; then
-  #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"         # coreutils
+  #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"                     # coreutils
   #export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"         # findutils
+  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"                     # findutils
   export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"           # gnu-tar
+  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"                       # gnu-tar
   export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"           # gnu-sed
+  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"                       # gnu-sed
   export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 fi
 
@@ -115,5 +115,5 @@ fi
 export PATH="$PATH:$GOPATH/bin"
 
 # RVM specific
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+export PATH="$PATH:$HOME/.rvm/bin"                                                # Make Ruby binaries discoverable
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"              # Load RVM into a shell session *as a function*
