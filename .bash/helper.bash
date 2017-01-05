@@ -29,6 +29,7 @@ if hash systemctl 2>/dev/null ; then
   complete -F _systemctl scl                                                   # load auto-completion for its alias as well
 fi
 alias x=extract                                                                # extract the contents of an archive
+alias xargs='xargs -rd\\n '                                                    # set default delimiter to newline instead of whitespace
 
 # upload file to Dropbox and share the link
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
