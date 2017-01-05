@@ -20,6 +20,7 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
 fi
 alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
 alias rm='rm -v'                                                               # let remove always be verbose
+alias rsync='rsync -avzhP --partial-dir=.rsync-partial'                        # enable compression and partial synchronization
 alias sudo='sudo '                                                             # required to enable auto-completion if command is prefixed with sudo
 alias service='sudo service'                                                   # let service always run with elevated privileges
 alias watch='watch --color '                                                   # let watch output always be colorized
