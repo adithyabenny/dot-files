@@ -60,7 +60,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   fi
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export CLICOLOR=1
-  export LSCOLORS=GxFxCxDxBxegedabagaced
+  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
