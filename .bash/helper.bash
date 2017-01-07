@@ -117,7 +117,7 @@ pb() {
 
 # list all network interfaces and their IPs
 ipp() {
-  interfaces=$(ifconfig | awk '{print $1}' RS='' | cut -d':' -f1 | grep -v 'lo')
+  interfaces=$(ifconfig | grep UP | awk '{print $1}' | cut -d':' -f1 | grep -v 'lo')
   for interface in $interfaces ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
     if [[ -n "$ip" ]] ; then
