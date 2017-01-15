@@ -9,23 +9,16 @@ export LESSOPEN="|lesspipe.sh %s"
 
 # enable bash completion in interactive shells
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-  if [[ -f /etc/bash_completion ]] ; then
-    source /etc/bash_completion
-  fi
-  if [[ -f /usr/share/bash-completion/bash_completion ]] ; then
-    source /usr/share/bash-completion/bash_completion
-  fi
+  [[ -f /etc/bash_completion ]] && source /etc/bash_completion
+  [[ -f /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  if [[ -f $(brew --prefix)/share/bash-completion/bash_completion ]] ; then
-    source $(brew --prefix)/share/bash-completion/bash_completion
-  fi
+  BREW_PREFIX=$(brew --prefix)
+  [[ -f $BREW_PREFIX/share/bash-completion/bash_completion ]] && source $BREW_PREFIX/share/bash-completion/bash_completion
 fi
 
 # list of files to source
 for file in ~/.bash/*.bash ; do
- if [[ -f "$file" ]] ; then
-   source "$file"
- fi
+ [[ -f "$file" ]] && source "$file"
 done
 
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -45,25 +38,16 @@ PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # enable color support for the commonly used binaries
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-  if [[ -x /usr/bin/dircolors ]] ; then
-    if [[ -r ~/.dircolors ]] ; then
-      eval "$(dircolors -b ~/.dircolors)"
-    else
-      eval "$(dircolors -b)"
-    fi
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-  fi
-elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  export CLICOLOR=1
-  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+  [[ -r ~/.dircolors ]] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias dir='dir --color=auto'
+  alias vdir='vdir --color=auto'
   alias grep='grep --color=auto'
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export CLICOLOR=1
+  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 fi
 
 # load bindings
@@ -98,7 +82,7 @@ export GOPATH="$HOME/go"
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
   export PATH="$PATH:/usr/local/go/bin"
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  export PATH="$PATH:$(brew --prefix)/opt/go/libexec/bin"
+  export PATH="$PATH:$BREW_PREFIX/opt/go/libexec/bin"
 fi
 export PATH="$PATH:$GOPATH/bin"
 
