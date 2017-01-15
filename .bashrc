@@ -8,16 +8,15 @@ fi
 
 # enable bash completion in interactive shells
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
-  if ! shopt -oq posix ; then
-    if [[ -f /usr/share/bash-completion/bash_completion ]] ; then
-      source /usr/share/bash-completion/bash_completion
-    elif [[ -f /etc/bash_completion ]] ; then
-      source /etc/bash_completion
-    fi
+  if [[ -f /etc/bash_completion ]] ; then
+    source /etc/bash_completion
+  fi
+  if [[ -f /usr/share/bash-completion/bash_completion ]] ; then
+    source /usr/share/bash-completion/bash_completion
   fi
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  if [[ -f $(brew --prefix)/etc/bash_completion ]] ; then
-    source $(brew --prefix)/etc/bash_completion
+  if [[ -f $(brew --prefix)/share/bash-completion/bash_completion ]] ; then
+    source $(brew --prefix)/share/bash-completion/bash_completion
   fi
 fi
 
@@ -89,18 +88,6 @@ for path in "${path_list[@]}" ; do
       export PATH="$PATH:$path" ;;
   esac
 done
-
-# macOS specific
-if [[ "$OSTYPE" == "darwin"* ]] ; then
-  #export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"                     # coreutils
-  #export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"                     # findutils
-  export MANPATH="/usr/local/opt/findutils/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"                       # gnu-tar
-  export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
-  export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"                       # gnu-sed
-  export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
-fi
 
 # Python specific
 export PYTHONSTARTUP="$HOME/.pythonrc"
