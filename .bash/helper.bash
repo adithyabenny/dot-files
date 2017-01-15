@@ -35,6 +35,13 @@ alias xargs='xargs -rd\\n '                                                    #
 # load aliases for Fasd
 # requires executable from https://github.com/clvv/fasd
 eval "$(fasd --init auto)"
+if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+  alias o='a -e xdg-open'
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  alias o='a -e open -b spotlight'
+fi
+alias v='f -t -e vim -b viminfo'
+_fasd_bash_hook_cmd_complete o v
 
 # upload file to Dropbox and share the link
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
