@@ -4,7 +4,8 @@ if [[ $- != *i* ]] ; then
 fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[[ -x /usr/bin/lesspipe ]] && eval "$(SHELL=/bin/sh lesspipe)"
+# requires executable from https://github.com/wofr06/lesspipe
+export LESSOPEN="|lesspipe.sh %s"
 
 # enable bash completion in interactive shells
 if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
