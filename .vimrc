@@ -72,7 +72,6 @@ Plug 'scrooloose/syntastic'                                          " syntax ch
 Plug 'tpope/vim-surround'                                            " quoting/parenthesizing made simple
 Plug 'scrooloose/nerdcommenter'                                      " powerful comment functions
 Plug 'airblade/vim-gitgutter'                                        " show git diff in the sign column
-Plug 'altercation/vim-colors-solarized'                              " set color scheme to solarized
 call plug#end()
 " Syntastic plugin settings
 set statusline+=%#WarningMsg#                                        " enable highlight group 'WarningMsg'
@@ -80,14 +79,10 @@ set statusline+=%{SyntasticStatuslineFlag()}                         " enable er
 set statusline+=%*                                                   " restore normal highlight
 let g:syntastic_check_on_open = 1                                    " run syntax checks when buffers are loaded
 let g:syntastic_check_on_wq = 0                                      " don't syntax check before write quit
-" Solarized plugin settings
-set background=dark                                                  " select Solarized dark theme instead of light
-let g:solarized_termtrans = 1                                        " accout for your terminal emulator being transparent
-let g:solarized_termcolors = 256                                     " use the 256 color scheme
-colorscheme solarized                                                " unable the Solarized color scheme
 
 
 " Appearance
+colorscheme slate                                                    " set color scheme
 " change the selected menu entry's background color to make it more visible
 highlight PmenuSel ctermbg=4
 " highlight trailing whitespaces
