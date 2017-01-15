@@ -32,6 +32,10 @@ fi
 alias x=extract                                                                # extract the contents of an archive
 alias xargs='xargs -rd\\n '                                                    # set default delimiter to newline instead of whitespace
 
+# load aliases for Fasd
+# requires executable from https://github.com/clvv/fasd
+eval "$(fasd --init auto)"
+
 # upload file to Dropbox and share the link
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
 # echo "export DROPBOX_SCRIPT='<location-of-dropbox_uploader.sh>'" >>~/.bash/private.bash
