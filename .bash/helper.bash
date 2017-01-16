@@ -12,7 +12,7 @@ alias lh='ls -d .??* 2>/dev/null'                                              #
 alias ll='ls -alFh'                                                            # list all files with their details
 alias mv='mv -v'                                                               # let move always be verbose
 alias mkdir='mkdir -pv'                                                        # let mkdir always be verbose, create parent directory if it doesn't exist
-if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+if [[ "$OSTYPE" == "linux"* ]] ; then
   alias osv='cat /etc/*-release | sort | uniq'                                 # output Linux distribution
   alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
@@ -36,7 +36,7 @@ alias xargs='xargs -rd\\n '                                                    #
 # requires executable from https://github.com/clvv/fasd
 if hash fasd 2>/dev/null ; then
   eval "$(fasd --init auto)"
-  if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+  if [[ "$OSTYPE" == "linux"* ]] ; then
     alias o='a -e xdg-open'
   elif [[ "$OSTYPE" == "darwin"* ]] ; then
     alias o='a -e open -b spotlight'
@@ -114,7 +114,7 @@ pb() {
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
-    if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+    if [[ "$OSTYPE" == "linux"* ]] ; then
       return 2
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)
@@ -159,7 +159,7 @@ shorten() {
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
-    if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+    if [[ "$OSTYPE" == "linux"* ]] ; then
       return 2
     elif [[ "$OSTYPE" == "darwin"* ]] ; then
       content=$(pbpaste)

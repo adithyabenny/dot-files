@@ -8,7 +8,7 @@ fi
 export LESSOPEN="|lesspipe.sh %s"
 
 # enable bash completion in interactive shells
-if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+if [[ "$OSTYPE" == "linux"* ]] ; then
   [[ -f /etc/bash_completion ]] && source /etc/bash_completion
   [[ -f /usr/share/bash-completion/bash_completion ]] && source /usr/share/bash-completion/bash_completion
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
@@ -37,7 +37,7 @@ PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u\[\033[1;32
 PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # enable color support for the commonly used binaries
-if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+if [[ "$OSTYPE" == "linux"* ]] ; then
   [[ -r ~/.dircolors ]] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
   alias ls='ls --color=auto'
   alias dir='dir --color=auto'
@@ -79,7 +79,7 @@ export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # Golang specific
 export GOPATH="$HOME/go"
-if [[ "$OSTYPE" == "linux-gnu"* ]] ; then
+if [[ "$OSTYPE" == "linux"* ]] ; then
   export PATH="$PATH:/usr/local/go/bin"
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export PATH="$PATH:$BREW_PREFIX/opt/go/libexec/bin"
