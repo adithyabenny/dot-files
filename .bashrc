@@ -86,6 +86,13 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
 fi
 export PATH="$PATH:$GOPATH/bin"
 
+# Java specific
+if [[ "$OSTYPE" == "linux"* ]] ; then
+  export JAVA_HOME=$(ls -d "/usr/lib/jvm/java*" 2>/dev/null | tail -n1)
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export JAVA_HOME=$(/usr/libexec/java_home)
+fi
+
 # RVM specific
 export PATH="$PATH:$HOME/.rvm/bin"                                                # Make Ruby binaries discoverable
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"              # Load RVM into a shell session *as a function*
