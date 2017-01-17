@@ -148,7 +148,7 @@ pipp() {
 # requires executable from https://github.com/erniebrodeur/pushover
 push() {
   if hash pushover 2>/dev/null ; then
-    pushover "$*"
+    pushover "$@"
   fi
 }
 
