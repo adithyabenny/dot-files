@@ -78,6 +78,7 @@ extract() {
       *.gz)       gunzip "$1"             ;;
       *.jar)      7z x "$1"               ;;
       *.lzma)     unlzma "$!"             ;;
+      *.r+(0))    unrar x "$1"            ;;
       *.rar)      unrar x "$1"            ;;
       *.tar)      tar vxf "$1"            ;;
       *.tar.bz2)  tar vxjf "$1"           ;;
