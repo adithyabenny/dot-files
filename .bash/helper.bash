@@ -16,6 +16,7 @@ if [[ "$OSTYPE" == "linux"* ]] ; then
   alias osv='cat /etc/*-release | sort | uniq'                                 # output Linux distribution
   alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  alias osv='sw_vers'                                                          # output Mac system version
   alias port='sudo lsof -nP -itcp -stcp:listen | grep --color=none v4'         # show all IPv4 TCP listening ports
 fi
 alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
