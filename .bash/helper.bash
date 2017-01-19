@@ -27,7 +27,6 @@ alias service='sudo service'                                                   #
 alias watch='watch --color '                                                   # let watch output always be colorized
 if hash systemctl 2>/dev/null ; then
   alias scl='sudo systemctl'                                                   # let systemctl always run with elevated privileges
-  source /usr/share/bash-completion/completions/systemctl                      # load auto-completion for systemctl
   complete -F _systemctl scl                                                   # load auto-completion for its alias as well
 fi
 alias x=extract                                                                # extract the contents of an archive
