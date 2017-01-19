@@ -62,9 +62,7 @@ dropbox() {
     fi
     url="${response::-5}"
     echo "$url"
-    if [[ "$OSTYPE" == "darwin"* ]] ; then
-      pbcopy <<< "$url"
-    fi
+    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
   done
 }
 
@@ -107,11 +105,7 @@ ff() {
 # upload contents to Haste, an open-source Node.js pastebin
 # echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
 pb() {
-  if [[ -z "$PASTEBIN_URL" ]] ; then
-    url="http://hastebin.com"
-  else
-    url="$PASTEBIN_URL"
-  fi
+  [[ -z "$PASTEBIN_URL" ]] && url="http://hastebin.com" || url="$PASTEBIN_URL"
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
@@ -124,9 +118,7 @@ pb() {
   response=$(curl -XPOST -s -d "$content" "$url/documents")
   url=$(awk -F '"' -v url="$url/raw/" '{print url $4}' <<< "$response")
   echo "$url"
-  if [[ "$OSTYPE" == "darwin"* ]] ; then
-    pbcopy <<< "$url"
-  fi
+  [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
 }
 
 # list all network interfaces and their IPs
@@ -134,9 +126,7 @@ ipp() {
   interfaces=$(ifconfig | awk -F '[ \t]+' '{print $1}' | sed '/^$/d' | cut -d':' -f1 | grep -v 'lo')
   for interface in $interfaces ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
-    if [[ -n "$ip" ]] ; then
-      echo -e "$interface\t$ip"
-    fi
+    [[ -n "$ip" ]] && echo -e "$interface\t$ip"
   done
 }
 
@@ -173,7 +163,5 @@ shorten() {
     url=$(echo "$response" | sed -n 3p | cut -d'"' -f4)
   fi
   echo "$url"
-  if [[ "$OSTYPE" == "darwin"* ]] ; then
-    pbcopy <<< "$url"
-  fi
+  [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
 }
