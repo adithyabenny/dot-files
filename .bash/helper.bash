@@ -50,6 +50,7 @@ fi
 # requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
 # echo "export DROPBOX_SCRIPT='<location-of-dropbox_uploader.sh>'" >>~/.bash/private.bash
 dropbox() {
+  local file url response
   for file in "$@" ; do
     $DROPBOX_SCRIPT -q upload "$file" /
     if [[ $? -ne 0 ]] ; then
@@ -106,6 +107,7 @@ ff() {
 # upload contents to Haste, an open-source Node.js pastebin
 # echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
 pb() {
+  local content response url
   [[ -z "$PASTEBIN_URL" ]] && url="http://hastebin.com" || url="$PASTEBIN_URL"
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
@@ -124,6 +126,7 @@ pb() {
 
 # list all network interfaces and their IPs
 ipp() {
+  local interfaces interface ip
   interfaces=$(ifconfig | awk -F '[ \t]+' '{print $1}' | sed '/^$/d' | cut -d':' -f1 | grep -v 'lo')
   for interface in $interfaces ; do
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
@@ -148,6 +151,7 @@ push() {
 # requires API KEY from https://developers.google.com/url-shortener
 # echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
 shorten() {
+  local content response url
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else

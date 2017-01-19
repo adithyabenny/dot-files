@@ -11,6 +11,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
 
   # change directory to the one open in Finder
   cdf() {
+    local target
     target=$(osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)' 2>/dev/null)
     if [[ -n $target ]] ; then
       cd "$target"
