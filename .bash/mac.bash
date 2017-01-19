@@ -24,7 +24,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   # requires executable from https://github.com/julienXX/terminal-notifier
   notify() {
     if hash terminal-notifier 2>/dev/null ; then
-      terminal-notifier -sound Ping -message "$*"
+      terminal-notifier -sound Ping -message "$@"
     fi
   }
 
