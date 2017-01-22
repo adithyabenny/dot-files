@@ -53,12 +53,12 @@ dropbox() {
   for file in "$@" ; do
     $DROPBOX_SCRIPT -q upload "$file" /
     if [[ $? -ne 0 ]] ; then
-      echo "Upload failed.."
+      echo "Upload failed.." >&2
       return 2
     fi
     response=$($DROPBOX_SCRIPT -q share "$file")
     if [[ $? -ne 0 ]] ; then
-      echo "Sharing failed.."
+      echo "Sharing failed.." >&2
       return 2
     fi
     url="${response::-5}"
@@ -89,11 +89,11 @@ extract() {
       *.zip)      unzip "$1"              ;;
       *.Z)        uncompress "$1"         ;;
       *)
-        echo "'$1' cannot be extracted"
+        echo "'$1' cannot be extracted" >&2
         return 2                          ;;
     esac
   else
-    echo "'$1' is not a file"
+    echo "'$1' is not a file" >&2
     return 2
   fi
 }
