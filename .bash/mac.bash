@@ -6,7 +6,7 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"																	# gnu-sed
   export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
-  alias slp='pmset displaysleepnow'                                                         # switch off display and go to sleep
+  alias slp='pmset sleepnow'                                                                # go to sleep
   alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'              # open file with Sublime Text
 
   # change directory to the one open in Finder
