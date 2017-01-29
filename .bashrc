@@ -88,7 +88,7 @@ export PATH="$PATH:$GOPATH/bin"
 
 # Java specific
 if [[ "$OSTYPE" == "linux"* ]] ; then
-  export JAVA_HOME=$(ls -d "/usr/lib/jvm/java*" 2>/dev/null | tail -n1)
+  export JAVA_HOME=$(ls -d "/usr/lib/jvm/java"* 2>/dev/null | tail -n1)
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
