@@ -32,9 +32,10 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   # sample usage:
   # download() {
   #   local operation operation_title operation_item
-  #   read -r -d '' operation <<'EOF'
-  #   aria2c "$item" ;    # ensure semicolon for multi-line operations
-  #   EOF                 # no whitespace to be there to the left of EOF
+  #   operation=$(cat <<EOF
+  #   aria2c "\$item" ;    # ensure semicolon for multi-line operations
+  #   EOF                  # no whitespace to be there to the left of EOF
+  #   )
   #   operation="$operation" operation_title="Download" operation_item="file(s)" _notify "$@"
   # }
   # download <file1> <file2>        # downloads both files sequentially, then notifies user on Desktop
