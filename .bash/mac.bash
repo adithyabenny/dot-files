@@ -6,6 +6,8 @@ if [[ "$OSTYPE" == "darwin"* ]] ; then
   export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"																	# gnu-sed
   export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 
+  export HOMEBREW_NO_ANALYTICS=1                                                            # disable Homebrew Analytics
+
   alias lck='pmset displaysleepnow'                                                         # switch off display
   alias slp='pmset sleepnow'                                                                # go to sleep
   alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'              # open file with Sublime Text
