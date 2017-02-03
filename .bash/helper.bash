@@ -5,6 +5,9 @@ alias ..4='cd ../../../..'                                                     #
 alias ..5='cd ../../../../..'                                                  # move 5 directories up
 alias cp='cp -v'                                                               # let copy always be verbose
 alias dig='dig +short'                                                         # let dig always be succinct
+alias egrep='egrep --color=auto '                                              # let egrep output be colorized
+alias fgrep='fgrep --color=auto '                                              # let fgrep output be colorized
+alias grep='grep --color=auto '                                                # let grep output be colorized
 alias l='ls -CF'                                                               # distinguish between file types by suffixing file name with a symbol
 alias la='ls -A'                                                               # list all files
 alias ld='ls -d */ 2>/dev/null'                                                # list only directories
@@ -31,6 +34,9 @@ if hash systemctl 2>/dev/null ; then
 fi
 alias x=extract                                                                # extract the contents of an archive
 alias xargs='xargs -rd\\n '                                                    # set default delimiter to newline instead of whitespace
+alias zgrep='grep --color=auto '                                               # let zgrep output be colorized
+alias zegrep='egrep --color=auto '                                             # let zegrep output be colorized
+alias zfgrep='fgrep --color=auto '                                             # let zfgrep output be colorized
 
 # load aliases for Fasd
 # requires executable from https://github.com/clvv/fasd
