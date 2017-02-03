@@ -58,8 +58,12 @@ map <Esc>q :q!<CR>
 set pastetoggle=<F2>
 " F3 will remove all trailing whitespaces
 nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-" F5 will toggle spell check
-map <F5> :setlocal spell!<CR>
+" F4 will toggle spell check
+map <F4> :setlocal spell!<CR>
+" F5 will toggle absolute line numbers
+map <F5> :set nu!<CR>
+" F6 will toggle relative line numbers
+map <F6> :set rnu!<CR>
 
 
 " Plugins
