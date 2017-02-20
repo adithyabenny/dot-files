@@ -75,13 +75,16 @@ dropbox() {
 
 # extract the contents of an archive
 extract() {
+  local file
   if [[ -f "$1" ]] ; then
+    file=$(echo "$1" | rev | cut -d'.' -f2- | rev)
     case "$1" in
       *.7z)       7z x "$1"               ;;
       *.bz2)      bunzip2 "$1"            ;;
       *.exe)      cabextract "$1"         ;;
       *.gz)       gunzip "$1"             ;;
       *.jar)      7z x "$1"               ;;
+      *.iso)      7z x "$1" -o"$file"     ;;
       *.lzma)     unlzma "$!"             ;;
       *.r+(0))    unrar x "$1"            ;;
       *.rar)      unrar x "$1"            ;;
