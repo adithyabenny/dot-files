@@ -20,7 +20,7 @@ if [[ "$OSTYPE" == "linux"* ]] ; then
   alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   alias osv='sw_vers'                                                          # output Mac system version
-  alias port='sudo lsof -nP -itcp -stcp:listen | grep --color=none v4'         # show all IPv4 TCP listening ports
+  alias port='sudo lsof -nP -itcp -stcp:listen'                                # show all TCP listening ports
 fi
 alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
 alias rm='rm -v'                                                               # let remove always be verbose
