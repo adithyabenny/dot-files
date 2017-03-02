@@ -81,6 +81,7 @@ extract() {
     case "$1" in
       *.7z)       7z x "$1"               ;;
       *.bz2)      bunzip2 "$1"            ;;
+      *.dmg)      7z x "$1"               ;;
       *.exe)      cabextract "$1"         ;;
       *.gz)       gunzip "$1"             ;;
       *.jar)      7z x "$1"               ;;
