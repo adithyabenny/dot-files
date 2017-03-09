@@ -73,6 +73,7 @@ done
 
 # Python specific
 export PYTHONSTARTUP="$HOME/.pythonrc"
+export PATH="$HOME/anaconda/bin:$PATH"
 
 # Golang specific
 export GOPATH="$HOME/go"
