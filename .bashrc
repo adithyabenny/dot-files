@@ -3,10 +3,6 @@ if [[ $- != *i* ]] ; then
   return
 fi
 
-# make less more friendly for non-text input files, see lesspipe(1)
-# requires executable from https://github.com/wofr06/lesspipe
-export LESSOPEN="|lesspipe.sh %s"
-
 # enable bash completion in interactive shells
 if [[ "$OSTYPE" == "linux"* ]] ; then
   [[ -f /etc/bash_completion ]] && source /etc/bash_completion
@@ -53,6 +49,10 @@ export INPUTRC="$HOME/.inputrc"
 # default text editor
 export EDITOR="vim"
 
+# make less more friendly for non-text input files, see lesspipe(1)
+# requires executable from https://github.com/wofr06/lesspipe
+export LESSOPEN="|lesspipe.sh %s"
+
 # enable color support within less
 # search within less is case insensitive unless the pattern contains uppercase letters
 export LESS="-Ri"
@@ -71,10 +71,6 @@ for path in "${path_list[@]}" ; do
   esac
 done
 
-# Python specific
-export PYTHONSTARTUP="$HOME/.pythonrc"
-export PATH="$HOME/anaconda/bin:$PATH"
-
 # Golang specific
 export GOPATH="$HOME/go"
 if [[ "$OSTYPE" == "linux"* ]] ; then
@@ -91,6 +87,17 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
+# Perl specific
+export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
+export PERL5LIB="/$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+
 # RVM specific
 export PATH="$PATH:$HOME/.rvm/bin"                                                # Make Ruby binaries discoverable
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"              # Load RVM into a shell session *as a function*
+
+# Python specific
+export PYTHONSTARTUP="$HOME/.pythonrc"
+export PATH="$HOME/anaconda/bin:$PATH"
