@@ -23,6 +23,22 @@ cdf() {
   fi
 }
 
+# unmount all DMGs
+eject() {
+  local volume volumes iused label dmgs dmg
+  volumes=$(df -h | grep "/Volumes")
+  while read volume ; do
+    iused=$(echo $volume | awk '{print $8}' | cut -f1 -d'%')
+    if [[ $iused == 0 ]] ; then
+      label=$(echo $volume | awk '{print $1}')
+      dmgs+=" $label"
+    fi
+  done <<< $volumes
+  for dmg in $dmgs ; do
+    hdiutil detach $dmg
+  done
+}
+
 # wrapper for notifying user on the status of an operation on an array of items
 # upon completion, the user is notified on the Desktop by default
 # pass -p as an argument for an additional Cell phone notification
@@ -31,10 +47,9 @@ cdf() {
 # sample usage:
 # download() {
 #   local operation operation_title operation_item
-#   operation=$(cat <<EOF
-#   aria2c "\$item" ;    # ensure semicolon for multi-line operations
-#   EOF                  # no whitespace to be there to the left of EOF
-#   )
+#   read -r -d '' operation <<'EOF'
+#   aria2c "$item" ;    # ensure semicolon for multi-line operations
+#   EOF                 # no whitespace to be there to the left of EOF
 #   operation="$operation" operation_title="Download" operation_item="file(s)" _notify "$@"
 # }
 # download <file1> <file2>        # downloads both files sequentially, then notifies user on Desktop
