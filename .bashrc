@@ -14,7 +14,7 @@ fi
 
 # list of files to source
 for file in $(ls ~/.bash/*.bash 2>/dev/null) ; do
- [[ -f "$file" ]] && source "$file"
+  source "$file"
 done
 
 # set variable identifying the chroot you work in (used in the prompt below)
