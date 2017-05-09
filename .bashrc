@@ -94,10 +94,10 @@ export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
+# Python specific
+export PYTHONSTARTUP="$HOME/.pythonrc"
+export PATH="$HOME/miniconda3/bin:$PATH"
+
 # RVM specific
 export PATH="$PATH:$HOME/.rvm/bin"                                                # Make Ruby binaries discoverable
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"              # Load RVM into a shell session *as a function*
-
-# Python specific
-export PYTHONSTARTUP="$HOME/.pythonrc"
-export PATH="$HOME/anaconda/bin:$PATH"
