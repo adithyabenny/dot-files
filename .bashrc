@@ -87,6 +87,9 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
+# LuaJIT specific
+[[ -f "$HOME/torch/install/bin/torch-activate" ]] && source "$HOME/torch/install/bin/torch-activate"
+
 # Perl specific
 export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
 export PERL5LIB="/$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
