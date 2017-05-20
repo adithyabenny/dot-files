@@ -15,7 +15,7 @@
 	changed = green bold
 	untracked = cyan bold
 [merge]
-	tool = meld
+	tool = opendiff
 
 [alias]
 	lg = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
