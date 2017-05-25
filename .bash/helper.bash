@@ -40,6 +40,13 @@ alias zgrep='grep --color=auto '                                               #
 alias zegrep='egrep --color=auto '                                             # let zegrep output be colorized
 alias zfgrep='fgrep --color=auto '                                             # let zfgrep output be colorized
 
+# upload file to Google Drive and share the link
+# requires executable from https://github.com/prasmussen/gdrive
+# echo "export GOOGLE_DRIVE_PARENT_FOLDER='<Id-of-parent-folder-to-upload-in>'" >>~/.bash/private.bash
+drive() {
+  gdrive upload --parent "$GOOGLE_DRIVE_PARENT_FOLDER" --share "$1"
+}
+
 # load aliases for Fasd
 # requires executable from https://github.com/clvv/fasd
 if hash fasd 2>/dev/null ; then
@@ -52,28 +59,6 @@ if hash fasd 2>/dev/null ; then
   alias v='f -t -e vim -b viminfo'
   _fasd_bash_hook_cmd_complete o v
 fi
-
-# upload file to Dropbox and share the link
-# requires executable from https://github.com/andreafabrizi/Dropbox-Uploader
-# echo "export DROPBOX_SCRIPT='<location-of-dropbox_uploader.sh>'" >>~/.bash/private.bash
-dropbox() {
-  local file url response
-  for file in "$@" ; do
-    $DROPBOX_SCRIPT -q upload "$file" /
-    if [[ $? -ne 0 ]] ; then
-      echo "Upload failed.." >&2
-      return 2
-    fi
-    response=$($DROPBOX_SCRIPT -q share "$file")
-    if [[ $? -ne 0 ]] ; then
-      echo "Sharing failed.." >&2
-      return 2
-    fi
-    url="${response::-5}"
-    echo "$url"
-    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
-  done
-}
 
 # extract the contents of an archive
 extract() {
