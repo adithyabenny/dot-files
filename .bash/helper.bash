@@ -45,6 +45,10 @@ alias zfgrep='fgrep --color=auto '                                             #
 # echo "export GOOGLE_DRIVE_PARENT_FOLDER='<Id-of-parent-folder-to-upload-in>'" >>~/.bash/private.bash
 drive() {
   local action file_id
+  if [[ -z $GOOGLE_DRIVE_PARENT_FOLDER ]] ; then
+    echo "Please set the environment variable \$GOOGLE_DRIVE_PARENT_FOLDER" >&2
+    return 2
+  fi
   if [[ "$1" == "-d" ]] ; then
     action="delete"
     shift
@@ -177,6 +181,10 @@ push() {
 # echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
 shorten() {
   local content response url
+  if [[ -z $GOOGLE_URL_SHORTENER_API_KEY ]] ; then
+    echo "Please set the environment variable \$GOOGLE_URL_SHORTENER_API_KEY" >&2
+    return 2
+  fi
   if [[ -p /dev/stdin ]] ; then
     content=$(cat)
   else
