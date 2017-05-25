@@ -44,7 +44,36 @@ alias zfgrep='fgrep --color=auto '                                             #
 # requires executable from https://github.com/prasmussen/gdrive
 # echo "export GOOGLE_DRIVE_PARENT_FOLDER='<Id-of-parent-folder-to-upload-in>'" >>~/.bash/private.bash
 drive() {
-  gdrive upload --parent "$GOOGLE_DRIVE_PARENT_FOLDER" --share "$1"
+  local action file_id
+  if [[ "$1" == "-d" ]] ; then
+    action="delete"
+    shift
+  elif [[ "$1" == "-l" ]] ; then
+    action="list"
+  elif [[ "$1" == -* ]] ; then
+    echo "Either pass -d to delete or -l to list" >&2
+    return 2
+  fi
+  if [[ $# -eq 0 ]] || [[ $# -gt 1 ]] ; then
+    if [[ $action == "list" ]] ; then
+      echo "Don't provide an argument after -l" >&2
+    else
+      echo "Please provide only one file as the argument" >&2
+    fi
+    return 2
+  fi
+  if ! [[ -f "$1" ]]  && [[ -z $action ]] ; then
+    echo "The argument has to be a file"
+    return 2
+  fi
+  if [[ $action == "delete" ]] ; then
+    file_id=$(gdrive list --order 'createdTime desc' -q "name contains '$1' and '$GOOGLE_DRIVE_PARENT_FOLDER' in parents" | sed -n 2p | awk '{print $1}')
+    gdrive delete $file_id
+  elif [[ $action == "list" ]] ; then
+    gdrive list --order 'createdTime desc' -q "'$GOOGLE_DRIVE_PARENT_FOLDER' in parents"
+  else
+    gdrive upload --parent "$GOOGLE_DRIVE_PARENT_FOLDER" --share "$1"
+  fi
 }
 
 # load aliases for Fasd
