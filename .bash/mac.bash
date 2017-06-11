@@ -23,19 +23,21 @@ cdf() {
   fi
 }
 
-# unmount all DMGs
+# unmount all DMGs or external HDDs
+# passing -e will unmount just the external HDDs whereas anything else will unmount just the DMGs
 eject() {
-  local volume volumes iused label dmgs dmg
+  local volume volumes iused iused_threshold label device devices
   volumes=$(df -h | grep "/Volumes")
+  [[ "$1" == "-e" ]] && iused_threshold=100 || iused_threshold=0
   while read volume ; do
     iused=$(echo $volume | awk '{print $8}' | cut -f1 -d'%')
-    if [[ $iused == 0 ]] ; then
+    if [[ $iused == $iused_threshold ]] ; then
       label=$(echo $volume | awk '{print $1}')
-      dmgs+=" $label"
+      devices+=" $label"
     fi
   done <<< $volumes
-  for dmg in $dmgs ; do
-    hdiutil detach $dmg
+  for device in $devices ; do
+    hdiutil detach $device
   done
 }
 
