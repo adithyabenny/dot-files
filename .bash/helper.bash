@@ -94,6 +94,10 @@ if hash fasd 2>/dev/null ; then
 fi
 
 # extract the contents of an archive
+# requires executable from http://p7zip.sourceforge.net/
+# requires executable from https://www.cabextract.org.uk/
+# requires executable from http://www.rarlab.com
+# requires executable from http://www.info-zip.org/pub/infozip/UnZip.html
 extract() {
   local file
   if [[ -f "$1" ]] ; then
