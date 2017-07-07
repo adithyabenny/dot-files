@@ -27,8 +27,14 @@
 [alias]
   # ignore a file that you may need to modify but not commit
   assume = update-index --assume-unchanged
+  # commit all changes using the given message
+  cam = commit --all --message
   # remove all ignored directories and files
   cl = clean -Xdf
+  # commit using the given message
+  cm = commit --message
+  # amend the most recent commit
+  cmd = commit --amend
   # switch branches or restore working tree files
   co = checkout
   # show all aliases
