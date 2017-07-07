@@ -26,6 +26,7 @@
 
 [alias]
   cl = clean -Xdf
+  co = checkout
   lg = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
   lgl = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
   lal = "!git config -l | grep alias | cut -c 7-"
