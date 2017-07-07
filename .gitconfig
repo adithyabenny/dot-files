@@ -9,9 +9,9 @@
   local = yellow bold
   remote = green bold
 [color "diff"]
-  meta = white
+  meta = yellow bold
   whitespace = red reverse
-  frag = blue bold
+  frag = magenta bold
   old = red
   new = green
 [color "status"]
