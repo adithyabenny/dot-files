@@ -8,8 +8,8 @@ alias dig='dig +short'                                                         #
 alias egrep='egrep --color=auto '                                              # let egrep output be colorized
 alias fgrep='fgrep --color=auto '                                              # let fgrep output be colorized
 alias grep='grep --color=auto '                                                # let grep output be colorized
-alias gd='git diff'                                                            # shorten Git diff
-alias gs='git status'                                                          # shorten Git status
+alias gd='git diff' && __git_complete gd _git_diff 2>/dev/null                 # shorten Git diff
+alias gs='git status' && __git_complete gs _git_status 2>/dev/null             # shorten Git status
 alias l='ls -CF'                                                               # distinguish between file types by suffixing file name with a symbol
 alias la='ls -A'                                                               # list all files
 alias ld='ls -d */ 2>/dev/null'                                                # list only directories
