@@ -1,2 +1,8 @@
 # dot-files
-Dot-files for bash, screen, vim, etc.
+Dot-files for Bash, Git, Vim, etc.
+
+## Setup
+```bash
+git clone git@github.com:adithyabenny/dot-files.git
+./dot-files/setup.sh      # backs up the existing dot files and installs the ones in this repo
+```
