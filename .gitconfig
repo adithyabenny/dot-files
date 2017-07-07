@@ -30,9 +30,9 @@
   # switch branches or restore working tree files
   co = checkout
   # show prettified commit logs
-  lg = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
+  lg = log --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
   # show prettified commit logs along with the altered list of files
-  lgl = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
+  lgl = log --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
   # show all aliases
   lal = "!git config -l | grep alias | cut -c 7-"
   # update remote from HTTPS to SSH
