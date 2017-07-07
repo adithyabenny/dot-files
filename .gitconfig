@@ -1,6 +1,7 @@
 [user]
   name = Adithya B Cherunilam
   email = adithya.benny@gmail.com
+
 [color]
   ui = true
 [color "branch"]
@@ -17,15 +18,22 @@
   added = yellow bold
   changed = green bold
   untracked = cyan bold
+
 [merge]
   tool = opendiff
+[push]
+  default = current
 
 [alias]
   cl = clean -Xdf
   lg = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
   lgl = log --pretty=format:'%Cred%h%Creset - %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
   lal = "!git config -l | grep alias | cut -c 7-"
+  ru = "!remote_update_ssh() { \
+    local REMOTE URL ; \
+    [[ -z \"$1\" ]] && REMOTE='origin' || REMOTE=\"$1\" ; \
+    URL=$(git remote get-url $REMOTE | sed -r 's/https:\\/\\/(.*)\\/(.*)\\/(.*)/git@\\1:\\2\\/\\3.git/') ; \
+    git remote set-url $REMOTE $URL ; \
+  } ; remote_update_ssh"
   st = status --short --untracked-files=no
   unt = ls-files --others --exclude-standard
-[push]
-  default = current
