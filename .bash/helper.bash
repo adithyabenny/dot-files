@@ -15,6 +15,7 @@ alias la='ls -A'                                                               #
 alias ld='ls -d */ 2>/dev/null'                                                # list only directories
 alias lh='ls -d .??* 2>/dev/null'                                              # list only hidden files
 alias ll='ls -alFh'                                                            # list all files with their details
+alias mtr='sudo mtr'                                                           # let mtr always run with elevated privileges
 alias mv='mv -v'                                                               # let move always be verbose
 alias mkdir='mkdir -pv'                                                        # let mkdir always be verbose, create parent directory if it doesn't exist
 if [[ "$OSTYPE" == "linux"* ]] ; then
