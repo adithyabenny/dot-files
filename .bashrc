@@ -30,10 +30,14 @@ fi
 
 # set the prompt string
 if [[ $USER == 'root' ]] ; then
-  USERNAME_COLOR='\[\033[1;33m\]'   # yellow
+  USERNAME_COLOR='\[\033[1;33m\]'     # yellow
   SENTINEL_CHAR='#'
 else
-  USERNAME_COLOR='\[\033[1;31m\]'   # red
+  if [[ -z $SSH_TTY ]] ; then
+    USERNAME_COLOR='\[\033[1;34m\]'   # blue
+  else
+    USERNAME_COLOR='\[\033[1;31m\]'   # red
+  fi
   SENTINEL_CHAR='$'
 fi
 PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}'${USERNAME_COLOR}'\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]'${SENTINEL_CHAR}' '
