@@ -29,7 +29,14 @@ if type -t __git_ps1 >/dev/null ; then
 fi
 
 # set the prompt string
-PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}\[\033[1;31m\]\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]$ '
+if [[ $USER == 'root' ]] ; then
+  USERNAME_COLOR='\[\033[1;33m\]'   # yellow
+  SENTINEL_CHAR='#'
+else
+  USERNAME_COLOR='\[\033[1;31m\]'   # red
+  SENTINEL_CHAR='$'
+fi
+PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}'${USERNAME_COLOR}'\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]'${SENTINEL_CHAR}' '
 PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # enable color support for the commonly used binaries
