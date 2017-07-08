@@ -25,26 +25,38 @@
   default = current
 
 [alias]
-  # ignore a file that you may need to modify but not commit
-  assume = update-index --assume-unchanged
-  # commit all changes using the given message
-  cam = commit --all --message
-  # remove all ignored directories and files
-  cl = clean -Xdf
+  # show all aliases
+  lal = "!git config -l | grep alias | cut -c 7-"
+
   # commit using the given message
   cm = commit --message
   # amend the most recent commit
   cmd = commit --amend
+  # commit all changes using the given message
+  cam = commit --all --message
   # switch branches or restore working tree files
   co = checkout
-  # show all aliases
-  lal = "!git config -l | grep alias | cut -c 7-"
   # show prettified commit logs
   lg = log --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset'
   # show prettified commit logs along with the altered list of files
   lgl = log --pretty=format:'%Cred%h%Creset %Cgreen(%cd) %Creset%s %C(bold blue)<%an> %Creset%Cgreen(%cr)%Creset' --numstat
+  # show the working tree status minus the untracked files
+  st = status --short --untracked-files=no
+
+  # remove all ignored directories and files
+  cl = clean -Xdf
+  # list just the untracked files
+  unt = ls-files --others --exclude-standard
+
+  # ignore a file that you may need to modify but not commit
+  assume = update-index --assume-unchanged
   # show all assumed files
-  ls-assume = "!git ls-files -v | grep ^h | cut -c 3-"
+  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+  # unassume a file
+  unassume = update-index --no-assume-unchanged
+  # unassume all assumed files
+  unassume-all = "!git assumed | xargs git unassume"
+
   # update remote from HTTPS to SSH
   # takes in the remote as an optional first argument, else defaults to origin
   ru = "!remote_update_ssh() { \
@@ -53,11 +65,3 @@
     URL=$(git remote get-url $REMOTE | sed -r 's/https:\\/\\/(.*)\\/(.*)\\/(.*)/git@\\1:\\2\\/\\3.git/') ; \
     git remote set-url $REMOTE $URL ; \
   } ; remote_update_ssh"
-  # show the working tree status minus the untracked files
-  st = status --short --untracked-files=no
-  # unassume a file
-  unassume = update-index --no-assume-unchanged
-  # unassume all assumed files
-  unassume-all = "!git ls-assume | xargs git update-index --no-assume-unchanged"
-  # list just the untracked files
-  unt = ls-files --others --exclude-standard
