@@ -26,12 +26,11 @@ cdf() {
 # unmount all DMGs or external HDDs
 # passing -e will unmount just the external HDDs whereas anything else will unmount just the DMGs
 eject() {
-  local volume volumes iused iused_threshold label device devices
-  volumes=$(df -h | grep "/Volumes")
-  [[ "$1" == "-e" ]] && iused_threshold=100 || iused_threshold=0
+  local volume volumes disk_type label device devices
+  volumes=$(diskutil list | grep "/dev/disk")
+  [[ "$1" == "-e" ]] && disk_type='external' || disk_type='image'
   while read volume ; do
-    iused=$(echo $volume | awk '{print $8}' | cut -f1 -d'%')
-    if [[ $iused == $iused_threshold ]] ; then
+    if grep -q $disk_type <<< $volume ; then
       label=$(echo $volume | awk '{print $1}')
       devices+=" $label"
     fi
