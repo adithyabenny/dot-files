@@ -19,6 +19,9 @@
   changed = green bold
   untracked = cyan bold
 
+[core]
+  # make sure that CRLF is replaced with LF when writing file to object database
+  autocrlf = input
 [merge]
   tool = opendiff
 [push]
