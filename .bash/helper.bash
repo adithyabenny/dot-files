@@ -138,6 +138,11 @@ ff() {
   find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
 }
 
+# like mv, but with progress bar
+msync() {
+  rsync --remove-source-files "$@" && find "$1" -type d -empty -delete
+}
+
 # upload contents to Haste, an open-source Node.js pastebin
 # echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
 pb() {
