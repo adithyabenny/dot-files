@@ -1,23 +1,36 @@
-alias ..='cd ..'                                                               # move 1 directory up
-alias ..2='cd ../..'                                                           # move 2 directories up
-alias ..3='cd ../../..'                                                        # move 3 directories up
-alias ..4='cd ../../../..'                                                     # move 4 directories up
-alias ..5='cd ../../../../..'                                                  # move 5 directories up
-alias cp='cp -v'                                                               # let copy always be verbose
-alias dig='dig +short'                                                         # let dig always be succinct
-alias egrep='egrep --color=auto '                                              # let egrep output be colorized
-alias fgrep='fgrep --color=auto '                                              # let fgrep output be colorized
-alias grep='grep --color=auto '                                                # let grep output be colorized
-alias gd='git diff' && __git_complete gd _git_diff 2>/dev/null                 # shorten Git diff
-alias gs='git status' && __git_complete gs _git_status 2>/dev/null             # shorten Git status
+# move up the directory
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+alias ..5='cd ../../../../..'
+
+# always be verbose/succinct
+alias cp='cp -v'
+alias dig='dig +short'
+alias mv='mv -v'
+alias rm='rm -v'
+
+# shorten frequently used commands
+alias gd='git diff' && __git_complete gd _git_diff 2>/dev/null
+alias gs='git status' && __git_complete gs _git_status 2>/dev/null
 alias l='ls -CF'                                                               # distinguish between file types by suffixing file name with a symbol
 alias la='ls -A'                                                               # list all files
 alias ld='ls -d */ 2>/dev/null'                                                # list only directories
 alias lh='ls -d .??* 2>/dev/null'                                              # list only hidden files
 alias ll='ls -alFh'                                                            # list all files with their details
-alias mtr='sudo mtr'                                                           # let mtr always run with elevated privileges
-alias mv='mv -v'                                                               # let move always be verbose
-alias mkdir='mkdir -pv'                                                        # let mkdir always be verbose, create parent directory if it doesn't exist
+alias x='extract'                                                              # extract the contents of an archive
+
+# run with elevated privileges
+alias mtr='sudo mtr'
+alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
+alias sudo='sudo '                                                             # required to enable auto-completion if alias is prefixed with sudo
+alias service='sudo service'
+if hash systemctl 2>/dev/null ; then
+  alias scl='sudo systemctl' && complete -F _systemctl scl
+fi
+
+# show status
 if [[ "$OSTYPE" == "linux"* ]] ; then
   alias osv='cat /etc/*-release | sort | uniq'                                 # output Linux distribution
   alias port='sudo netstat -tulpn'                                             # show all listening ports
@@ -25,21 +38,39 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
   alias osv='sw_vers'                                                          # output Mac system version
   alias port='sudo lsof -nP -itcp -stcp:listen'                                # show all TCP listening ports
 fi
-alias pls='sudo $(history -p \!\!)'                                            # re-execute last command with elevated privileges
-alias rm='rm -v'                                                               # let remove always be verbose
+alias pipp='curl -s icanhazip.com'                                             # show public IP
+
+# run with specific settings
+alias mkdir='mkdir -p'                                                         # create parent directory if it doesn't exist
 alias rsync='rsync -avzhP --partial-dir=.rsync-partial'                        # enable compression and partial synchronization
-alias sudo='sudo '                                                             # required to enable auto-completion if command is prefixed with sudo
-alias service='sudo service'                                                   # let service always run with elevated privileges
-alias watch='watch --color '                                                   # let watch output always be colorized
-if hash systemctl 2>/dev/null ; then
-  alias scl='sudo systemctl'                                                   # let systemctl always run with elevated privileges
-  complete -F _systemctl scl                                                   # load auto-completion for its alias as well
-fi
-alias x=extract                                                                # extract the contents of an archive
 alias xargs='xargs -rd\\n '                                                    # set default delimiter to newline instead of whitespace
-alias zgrep='grep --color=auto '                                               # let zgrep output be colorized
-alias zegrep='egrep --color=auto '                                             # let zegrep output be colorized
-alias zfgrep='fgrep --color=auto '                                             # let zfgrep output be colorized
+
+# colorize output
+if [[ "$OSTYPE" == "linux"* ]] ; then
+  alias dir='dir --color=auto'
+  alias ls='ls --color=auto'
+  alias vdir='vdir --color=auto'
+fi
+alias egrep='egrep --color=auto '
+alias fgrep='fgrep --color=auto '
+alias grep='grep --color=auto '
+alias watch='watch --color '
+alias zgrep='grep --color=auto '
+alias zegrep='egrep --color=auto '
+alias zfgrep='fgrep --color=auto '
+
+# load aliases for Fasd
+# requires executable from https://github.com/clvv/fasd
+if hash fasd 2>/dev/null ; then
+  eval "$(fasd --init auto)"
+  if [[ "$OSTYPE" == "linux"* ]] ; then
+    alias o='a -e xdg-open'
+  elif [[ "$OSTYPE" == "darwin"* ]] ; then
+    alias o='a -e open -b spotlight'
+  fi
+  alias v='f -t -e vim -b viminfo'
+  _fasd_bash_hook_cmd_complete o v
+fi
 
 # upload file to Google Drive and share the link
 # requires executable from https://github.com/prasmussen/gdrive
@@ -80,19 +111,6 @@ drive() {
     gdrive upload --parent "$GOOGLE_DRIVE_PARENT_FOLDER" --share "$1"
   fi
 }
-
-# load aliases for Fasd
-# requires executable from https://github.com/clvv/fasd
-if hash fasd 2>/dev/null ; then
-  eval "$(fasd --init auto)"
-  if [[ "$OSTYPE" == "linux"* ]] ; then
-    alias o='a -e xdg-open'
-  elif [[ "$OSTYPE" == "darwin"* ]] ; then
-    alias o='a -e open -b spotlight'
-  fi
-  alias v='f -t -e vim -b viminfo'
-  _fasd_bash_hook_cmd_complete o v
-fi
 
 # extract the contents of an archive
 # requires executable from http://p7zip.sourceforge.net/
@@ -173,17 +191,10 @@ ipp() {
   done
 }
 
-# show public IP
-pipp() {
-  curl -s icanhazip.com
-}
-
 # send push notifications to your mobile device via the web service Pushover
 # requires executable from https://github.com/erniebrodeur/pushover
 push() {
-  if hash pushover 2>/dev/null ; then
-    pushover "$@"
-  fi
+  pushover "$@"
 }
 
 # shorten URL using Google API
