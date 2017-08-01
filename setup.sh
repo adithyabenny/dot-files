@@ -78,7 +78,7 @@ done
 SRC_DIR=$(dirname "$0")
 SOURCE=""
 TARGET="$HOME"
-EXCLUDE_FILES='--exclude={*.swp,.git,README.md,setup.sh}'
+EXCLUDE_FILES='--exclude={*.swp,.git,.gitignore,README.md,setup.sh}'
 [[ "$OSTYPE" != "darwin"* ]]  && EXCLUDE_FILES+=' --exclude=mac.bash'
 [[ $SKIP_EXISTING == 1 ]]     && OVERWRITE_SETTINGS='--ignore-existing' || OVERWRITE_SETTINGS='--backup --suffix=.bak'
 [[ $INSTALL_ALL == 1 ]]       && SOURCE+=" $SRC_DIR/"
