@@ -9,7 +9,6 @@ export HOMEBREW_NO_ANALYTICS=1                                                  
 
 alias lck='pmset displaysleepnow'                                                         # switch off display
 alias slp='pmset sleepnow'                                                                # go to sleep
-alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'              # open file with Sublime Text
 
 # change directory to the one open in Finder
 cdf() {
