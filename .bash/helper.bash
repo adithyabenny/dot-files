@@ -36,7 +36,7 @@ if [[ "$OSTYPE" == "linux"* ]] ; then
   alias port='sudo netstat -tulpn'                                             # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
   alias osv='sw_vers'                                                          # output Mac system version
-  alias port='sudo lsof -nP -itcp -stcp:listen'                                # show all TCP listening ports
+  alias port='sudo lsof -nP -i4 -iudp -itcp -stcp:listen | grep -v "\:\*"'     # show all IPv4 ports listening for connections
 fi
 alias pipp='curl -s icanhazip.com'                                             # show public IP
 
