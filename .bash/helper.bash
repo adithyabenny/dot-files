@@ -38,7 +38,6 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
   alias osv='sw_vers'                                                          # output Mac system version
   alias port='sudo lsof -nP -i4 -iudp -itcp -stcp:listen | grep -v "\:\*"'     # show all IPv4 ports listening for connections
 fi
-alias pipp='curl -s icanhazip.com'                                             # show public IP
 
 # run with specific settings
 alias mkdir='mkdir -p'                                                         # create parent directory if it doesn't exist
@@ -189,6 +188,11 @@ ipp() {
     ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
     [[ -n "$ip" ]] && echo -e "$interface\t$ip"
   done
+}
+
+# show public IP
+pipp() {
+  dig +short myip.opendns.com @resolver1.opendns.com
 }
 
 # send push notifications to your mobile device via the web service Pushover
