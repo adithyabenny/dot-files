@@ -27,6 +27,7 @@ alias pls='sudo $(history -p \!\!)'                                            #
 alias sudo='sudo '                                                             # required to enable auto-completion if alias is prefixed with sudo
 alias service='sudo service'
 if hash systemctl 2>/dev/null ; then
+  source /usr/share/bash-completion/completions/systemctl
   alias scl='sudo systemctl' && complete -F _systemctl scl
 fi
 
