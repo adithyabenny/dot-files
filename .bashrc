@@ -43,28 +43,6 @@ fi
 PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}'${USERNAME_COLOR}'\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]'${SENTINEL_CHAR}' '
 PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
-# enable color support for the commonly used binaries
-if [[ "$OSTYPE" == "linux"* ]] ; then
-  [[ -r ~/.dircolors ]] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-elif [[ "$OSTYPE" == "darwin"* ]] ; then
-  export CLICOLOR=1
-  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
-fi
-
-# load bindings
-export INPUTRC="$HOME/.inputrc"
-
-# default text editor
-export EDITOR="vim"
-
-# make less more friendly for non-text input files, see lesspipe(1)
-# requires executable from https://github.com/wofr06/lesspipe
-export LESSOPEN="|lesspipe.sh %s"
-
-# enable color support within less
-# search within less is case insensitive unless the pattern contains uppercase letters
-export LESS="-Ri"
-
 # set the MySQL prompt
 export MYSQL_PS1="\u@\h [\d]> "
 
@@ -78,3 +56,29 @@ for path in "${path_list[@]}" ; do
       export PATH="$PATH:$path" ;;
   esac
 done
+
+# enable color support for the commonly used binaries
+if [[ "$OSTYPE" == "linux"* ]] ; then
+  [[ -r ~/.dircolors ]] && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export CLICOLOR=1
+  export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
+fi
+
+# load custom key bindings
+export INPUTRC="$HOME/.inputrc"
+
+# default text editor
+export EDITOR="vim"
+
+# make less more friendly for non-text input files, see lesspipe(1)
+# requires executable from https://github.com/wofr06/lesspipe
+if hash lesspipe 2>/dev/null ; then
+  export LESSOPEN="|lesspipe %s"
+elif hash lesspipe.sh 2>/dev/null ; then
+  export LESSOPEN="|lesspipe.sh %s"
+fi
+
+# enable color support within less
+# search within less is case insensitive unless the pattern contains uppercase letters
+export LESS="-Ri"
