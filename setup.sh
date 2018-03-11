@@ -96,7 +96,7 @@ EXCLUDE_FILES='--exclude={*.swp,.git,.gitignore,README.md,setup.sh}'
 rsync -avzh $OVERWRITE_SETTINGS $(eval "echo $EXCLUDE_FILES") $(eval "echo $SOURCE") "$TARGET"
 
 if [[ $INSTALL_ALL == 1 || $INSTALL_SSH == 1 ]] ; then
-  chmod 700 "$TARGET" "$TARGET/.ssh"
+  chmod 700 "$TARGET/.ssh"
   chmod 644 "$TARGET/.ssh/config"
 fi
 
