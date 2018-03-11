@@ -99,3 +99,8 @@ if [[ $INSTALL_ALL == 1 || $INSTALL_SSH == 1 ]] ; then
   chmod 700 "$TARGET" "$TARGET/.ssh"
   chmod 644 "$TARGET/.ssh/config"
 fi
+
+if [[ $INSTALL_ALL == 1 || $INSTALL_VIM == 1 ]] ; then
+  curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  vim +PlugInstall +qall
+fi
