@@ -33,7 +33,7 @@ if [[ $USER == 'root' ]] ; then
   USERNAME_COLOR='\[\033[1;33m\]'     # yellow
   SENTINEL_CHAR='#'
 else
-  if [[ -z $SSH_TTY ]] ; then
+  if [[ -z $SSH_CONNECTION ]] ; then
     USERNAME_COLOR='\[\033[1;34m\]'   # blue
   else
     USERNAME_COLOR='\[\033[1;31m\]'   # red
