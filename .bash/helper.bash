@@ -158,7 +158,10 @@ ff() {
 
 # like mv, but with progress bar
 msync() {
-  rsync --remove-source-files "$@" && find "$1" -type d -empty -delete
+  rsync --remove-source-files "$@"
+  if [[ $? -eq 0 ]] && [[ -d "$1" ]] ; then
+    find "$1" -type d -empty -delete
+  fi
 }
 
 # upload contents to Haste, an open-source Node.js pastebin
