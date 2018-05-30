@@ -42,7 +42,7 @@ fi
 
 # run with specific settings
 alias mkdir='mkdir -p'                                                         # create parent directory if it doesn't exist
-alias rsync='rsync -avzhP --partial-dir=.rsync-partial'                        # enable compression and partial synchronization
+alias rsync='rsync -avzhPLK --partial-dir=.rsync-partial'                      # enable compression and partial synchronization
 alias xargs='xargs -rd\\n '                                                    # set default delimiter to newline instead of whitespace
 
 # colorize output
