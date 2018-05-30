@@ -65,6 +65,6 @@
   ru = "!remote_update_ssh() { \
     local REMOTE URL ; \
     [[ -z \"$1\" ]] && REMOTE='origin' || REMOTE=\"$1\" ; \
-    URL=$(git remote get-url $REMOTE | sed -r 's/https:\\/\\/(.*)\\/(.*)\\/(.*)/git@\\1:\\2\\/\\3.git/') ; \
+    URL=$(git remote get-url $REMOTE | sed -E 's/https:\\/\\/(.*)\\/(.*)\\/(.*)/git@\\1:\\2\\/\\3.git/') ; \
     git remote set-url $REMOTE $URL ; \
   } ; remote_update_ssh"
