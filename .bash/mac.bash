@@ -8,6 +8,7 @@ export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
 export HOMEBREW_NO_ANALYTICS=1                                                            # disable Homebrew Analytics
 
 alias lck='pmset displaysleepnow'                                                         # switch off display
+alias shred='gshred -vfz -n 10'                                                           # securely erase the file
 alias slp='pmset sleepnow'                                                                # go to sleep
 
 # change directory to the one open in Finder
