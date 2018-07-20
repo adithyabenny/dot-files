@@ -1,7 +1,2 @@
 bind "\e[A" ed-search-prev-history               # Up arrow does a reverse history search
 bind "\e[B" ed-search-next-history               # Down arrow does a forward history search
-bind "^W" ed-delete-prev-word                    # Ctrl-W erases from cursor to start of word
-bind "^U" vi-kill-line-prev                      # Ctrl-U erases from cursor to start of line
-bind "^K" ed-kill-line                           # Ctrl-K erases from cursor to end of line
-bind "\e[1;5D" vi-prev-word                      # Ctrl-Left goes from cursor to previous word
-bind "\e[1;5C" vi-next-word                      # Ctrl-Right goes from cursor to next word

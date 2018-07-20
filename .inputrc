@@ -1,9 +1,5 @@
 "\e[A": history-search-backward                  # Up arrow does a reverse history search
 "\e[B": history-search-forward                   # Down arrow does a forward history search
-"\e[C": forward-char                             # Left key moves one character to the left
-"\e[D": backward-char                            # Right key moves one character to the right
-"\e[1;5D": backward-word                         # Ctrl-Left moves one word to the left
-"\e[1;5C": forward-word                          # Ctrl-Right moves one word to the right
 "\es":"\C-asudo \C-e"                            # Alt-S prefixes the line with `sudo` and takes the cursor to end of line
 
 set colored-stats on                             # display possible completions using different color
