@@ -76,6 +76,7 @@ Plug 'scrooloose/syntastic'                                          " syntax ch
 Plug 'tpope/vim-surround'                                            " quoting/parenthesizing made simple
 Plug 'scrooloose/nerdcommenter'                                      " powerful comment functions
 Plug 'airblade/vim-gitgutter'                                        " show git diff in the sign column
+Plug 'chr4/nginx.vim'                                                " syntax highlight Nginx config files
 call plug#end()
 " Syntastic plugin settings
 set statusline+=%#WarningMsg#                                        " enable highlight group 'WarningMsg'
