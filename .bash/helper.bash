@@ -72,6 +72,10 @@ if hash fasd 2>/dev/null ; then
   _fasd_bash_hook_cmd_complete o v
 fi
 
+# shortcut for geolocating IPs
+# requires executable from https://packages.debian.org/stretch/geoip-bin
+alias geo='geoiplookup'
+
 # upload file to Google Drive and share the link
 # requires executable from https://github.com/prasmussen/gdrive
 # echo "export GOOGLE_DRIVE_PARENT_FOLDER='<Id-of-parent-folder-to-upload-in>'" >>~/.bash/private.bash
