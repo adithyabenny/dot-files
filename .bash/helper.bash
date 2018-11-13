@@ -200,7 +200,8 @@ ipp() {
 
 # show public IP
 pipp() {
-  dig +short myip.opendns.com @resolver1.opendns.com
+  dig +short -4 A myip.opendns.com @resolver1.opendns.com
+  dig +short -6 AAAA myip.opendns.com @resolver1.opendns.com
 }
 
 # send push notifications to your mobile device via the web service Pushover
