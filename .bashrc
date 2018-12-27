@@ -17,11 +17,6 @@ for file in $(ls ~/.bash/*.bash 2>/dev/null) ; do
   source "$file"
 done
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [[ -z "${debian_chroot:-}" ]] && [[ -r /etc/debian_chroot ]] ; then
-  debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # load Git info (used in the prompt below)
 if type -t __git_ps1 >/dev/null ; then
   export GIT_PS1_SHOWDIRTYSTATE=true
@@ -29,18 +24,22 @@ if type -t __git_ps1 >/dev/null ; then
 fi
 
 # set the prompt string
-if [[ $USER == 'root' ]] ; then
-  USERNAME_COLOR='\[\033[1;33m\]'     # yellow
+USERNAME_COLOR='\[\033[1;34m\]'         # blue
+SENTINEL_CHAR='$'
+if [[ -f "/.dockerenv" ]] ; then        # inverted blue
+  CONTAINER='\[\033[1;104m\](docker)\[\033[0m\] '
+elif [[ $USER == 'root' ]] ; then       # yellow
+  USERNAME_COLOR='\[\033[1;33m\]'
   SENTINEL_CHAR='#'
-else
-  if [[ -z $SSH_CONNECTION ]] ; then
-    USERNAME_COLOR='\[\033[1;34m\]'   # blue
-  else
-    USERNAME_COLOR='\[\033[1;31m\]'   # red
-  fi
-  SENTINEL_CHAR='$'
+elif [[ -n $SSH_CONNECTION ]] ; then    # red
+  USERNAME_COLOR='\[\033[1;31m\]'
 fi
-PS1='\[\033[1;33m\]${debian_chroot:+($debian_chroot)}'${USERNAME_COLOR}'\u\[\033[1;32m\]@\h\[\033[0m\]:\[\033[1;34m\]\w\[\033[0m\]\[\033[1;33m\]$git_state\[\033[0m\]'${SENTINEL_CHAR}' '
+PS1=${CONTAINER}
+PS1+=${USERNAME_COLOR}'\u'              # user
+PS1+='\[\033[0m\]\[\033[1;32m\]@\h'     # hostname
+PS1+='\[\033[0m\]:\[\033[1;34m\]\w'     # working directory
+PS1+='\[\033[1;33m\]$git_state'         # git branch
+PS1+='\[\033[0m\]'${SENTINEL_CHAR}' '
 PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # set the MySQL prompt
