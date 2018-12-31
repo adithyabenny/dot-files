@@ -14,9 +14,6 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
   export JAVA_HOME=$(/usr/libexec/java_home)
 fi
 
-# LuaJIT specific
-[[ -f "$HOME/torch/install/bin/torch-activate" ]] && source "$HOME/torch/install/bin/torch-activate"
-
 # Perl specific
 export PATH="$HOME/perl5/bin${PATH:+:${PATH}}"
 export PERL5LIB="/$HOME/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"
@@ -26,8 +23,12 @@ export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 
 # Python specific
 export PYTHONSTARTUP="$HOME/.pythonrc"
-export PATH="$HOME/miniconda3/bin:$PATH"
+if [[ "$OSTYPE" == "linux"* ]] ; then
+  export PATH="$HOME/miniconda3/bin:$PATH"
+elif [[ "$OSTYPE" == "darwin"* ]] ; then
+  export PATH="$BREW_PREFIX/miniconda3/bin:$PATH"
+fi
 
-# Ruby Version Manager specific
-export PATH="$PATH:$HOME/.rvm/bin"                                                # Make Ruby binaries discoverable
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"              # Load RVM into a shell session *as a function*
+# Ruby specific
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"    # Load RVM into a shell session *as a function*
