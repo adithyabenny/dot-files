@@ -160,6 +160,11 @@ ff() {
   find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
 }
 
+# search the command line history and show the matches
+his() {
+  grep "$*" "$HISTFILE" | less +G
+}
+
 # like mv, but with progress bar
 msync() {
   rsync --remove-source-files "$@"
