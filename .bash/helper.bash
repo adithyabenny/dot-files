@@ -214,31 +214,3 @@ pipp() {
 push() {
   pushover "$@"
 }
-
-# shorten URL using Google API
-# requires API KEY from https://developers.google.com/url-shortener
-# echo "export GOOGLE_URL_SHORTENER_API_KEY='<your-api-key>'" >>~/.bash/private.bash"
-shorten() {
-  local content response url
-  if [[ -z $GOOGLE_URL_SHORTENER_API_KEY ]] ; then
-    echo "Please set the environment variable \$GOOGLE_URL_SHORTENER_API_KEY" >&2
-    return 2
-  fi
-  if [[ -p /dev/stdin ]] ; then
-    content=$(cat)
-  else
-    if [[ "$OSTYPE" == "linux"* ]] ; then
-      return 2
-    elif [[ "$OSTYPE" == "darwin"* ]] ; then
-      content=$(pbpaste)
-    fi
-  fi
-  response=$(curl -s "https://www.googleapis.com/urlshortener/v1/url?key=$GOOGLE_URL_SHORTENER_API_KEY" -H "Content-Type: application/json" -d "{\"longUrl\": \"$content\"}")
-  if grep -q error <<< "$response" ; then
-    return 2
-  else
-    url=$(echo "$response" | sed -n 3p | cut -d'"' -f4)
-  fi
-  echo "$url"
-  [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
-}
