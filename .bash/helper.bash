@@ -14,6 +14,7 @@ alias rm='rm -v'
 # shorten frequently used commands
 alias ga='git add -A' && __git_complete ga _git_add 2>/dev/null
 alias gd='git diff' && __git_complete gd _git_diff 2>/dev/null
+alias gl='git lg' && __git_complete gl _git_log 2>/dev/null
 alias gs='git status' && __git_complete gs _git_status 2>/dev/null
 alias l='ls -CF'                                                               # distinguish between file types by suffixing file name with a symbol
 alias la='ls -A'                                                               # list all files
