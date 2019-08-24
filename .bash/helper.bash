@@ -68,7 +68,7 @@ if hash fasd 2>/dev/null ; then
   if [[ "$OSTYPE" == "linux"* ]] ; then
     alias o='a -e xdg-open'
   elif [[ "$OSTYPE" == "darwin"* ]] ; then
-    alias o='a -e open -b spotlight'
+    alias o='a -e open'
   fi
   alias v='f -t -e vim -b viminfo'
   _fasd_bash_hook_cmd_complete o v
