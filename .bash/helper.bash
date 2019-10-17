@@ -197,11 +197,22 @@ pb() {
 
 # list all network interfaces and their IPs
 ipp() {
-  local interfaces interface ip
+  local interfaces interface ips ips_v4 ips_v6
   interfaces=$(ifconfig | awk -F '[ \t]+' '{print $1}' | sed '/^$/d' | cut -d':' -f1 | grep -v 'lo')
   for interface in $interfaces ; do
-    ip=$(ifconfig $interface | grep "inet[^6]" | awk '{print $2}' | cut -d':' -f2)
-    [[ -n "$ip" ]] && echo -e "$interface\t$ip"
+    ips=$(ifconfig $interface 2>/dev/null | grep "inet" | sed -E 's/addr:\ ?//g' | awk '{print $2}' | egrep -v "^169\.254|^fe80::")
+    if [[ -n "$ips" ]] ; then
+      ips_v4=$(echo "$ips" | grep "\." | sort -n | sed 's/^/\t/g')
+      ips_v6=$(echo "$ips" | grep ":" | sort -n | sed 's/^/\t/g' | cut -d'/' -f1)
+      if [[ -z "$ips_v4" ]] ; then
+        ips="$interface:$ips_v6"
+      elif [[ -z "$ips_v6" ]] ; then
+        ips="$interface:$ips_v4"
+      else
+        ips="$interface:$ips_v4\n$ips_v6"
+      fi
+      echo -e "$ips"
+    fi
   done
 }
 
