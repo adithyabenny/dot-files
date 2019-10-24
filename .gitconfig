@@ -48,6 +48,8 @@
 
   # remove all ignored directories and files
   cl = clean -Xdf
+  # list all files inside that aren't part of the original repo
+  ign = ls-files --others --exclude-standard --ignored
   # list just the untracked files
   unt = ls-files --others --exclude-standard
 
