@@ -13,7 +13,7 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
 fi
 
 # list of files to source
-for file in $(ls ~/.bash/*.bash 2>/dev/null) ; do
+for file in $HOME/.bash/*.bash ; do
   source "$file"
 done
 
