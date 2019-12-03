@@ -78,6 +78,22 @@ fi
 # requires executable from https://packages.debian.org/stretch/geoip-bin
 alias geo='geoiplookup'
 
+# send push notification when command runs successfully
+alert-on-success() {
+  local command="$1"
+  local alert_msg="${2:-The command \`$command\` has run successfully!}"
+  while true ; do
+    sleep 1
+    eval "$command"
+    local exit_code=($?)
+    echo
+    if [[ $exit_code -eq 0 ]] ; then
+      push "$alert_msg"
+      break
+    fi
+  done
+}
+
 # upload file to Google Drive and share the link
 # requires executable from https://github.com/prasmussen/gdrive
 # echo "export GOOGLE_DRIVE_PARENT_FOLDER='<Id-of-parent-folder-to-upload-in>'" >>~/.bash/private.bash
@@ -136,9 +152,7 @@ extract() {
       *.jar)      7z x "$1"               ;;
       *.iso)      7z x "$1" -o"$file"     ;;
       *.lzma)     unlzma "$!"             ;;
-      *.r0)       unrar x "$1"            ;;
-      *.r00)      unrar x "$1"            ;;
-      *.r000)     unrar x "$1"            ;;
+      *.r+(0))    unrar x "$1"            ;;
       *.rar)      unrar x "$1"            ;;
       *.tar)      tar vxf "$1"            ;;
       *.tar.bz2)  tar vxjf "$1"           ;;
