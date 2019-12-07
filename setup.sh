@@ -93,7 +93,7 @@ EXCLUDE_FILES='--exclude={*.swp,.git,.gitignore,README.md,setup.sh}'
 [[ $INSTALL_TMUX == 1 ]]      && SOURCE+=" $SRC_DIR/.tmux.conf"
 [[ $INSTALL_VIM == 1 ]]       && SOURCE+=" $SRC_DIR/{.vim,.vimrc}"
 
-rsync -avzh $OVERWRITE_SETTINGS $(eval "echo $EXCLUDE_FILES") $(eval "echo $SOURCE") "$TARGET"
+rsync -avzh --copy-links $OVERWRITE_SETTINGS $(eval "echo $EXCLUDE_FILES") $(eval "echo $SOURCE") "$TARGET"
 
 if [[ $INSTALL_ALL == 1 || $INSTALL_BASH == 1 ]] ; then
   curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh' -o "$TARGET/.bash/git-prompt.bash"
