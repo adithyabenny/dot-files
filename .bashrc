@@ -46,7 +46,7 @@ PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 export MYSQL_PS1="\u@\h [\d]> "
 
 # add the following locations to $PATH if not already present
-path_list=('/bin' '/sbin' '/usr/bin' '/usr/sbin' '/usr/local/bin' '/usr/local/sbin')
+path_list=('/bin' '/sbin' '/usr/bin' '/usr/sbin' '/usr/local/bin' '/usr/local/sbin', "$HOME/bin")
 for path in "${path_list[@]}" ; do
   case ":${PATH:=$path}:" in
     *":$path:"*)
