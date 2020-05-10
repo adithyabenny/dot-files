@@ -4,6 +4,7 @@ export PATH="/usr/local/opt/gnu-tar/libexec/gnubin:$PATH"																	# gnu-
 export MANPATH="/usr/local/opt/gnu-tar/libexec/gnuman:$MANPATH"
 export PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"																	# gnu-sed
 export MANPATH="/usr/local/opt/gnu-sed/libexec/gnuman:$MANPATH"
+export PATH="/usr/local/share/john/:$PATH"                                                # load scripts from John the Ripper
 
 export HOMEBREW_NO_ANALYTICS=1                                                            # disable Homebrew Analytics
 
@@ -56,6 +57,7 @@ eject() {
     hdiutil detach $device
   done
 }
+
 
 # wrapper for notifying user on the status of an operation on an array of items
 # upon completion, the user is notified on the Desktop by default
