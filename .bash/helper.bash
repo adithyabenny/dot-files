@@ -177,7 +177,7 @@ extract() {
 
 # find file by name
 ff() {
-  find . -type f -iname '*'"$*"'*' -ls 2>/dev/null
+  find -L . -type f -iname '*'"$*"'*' -ls 2>/dev/null
 }
 
 # search the command line history and show the matches
