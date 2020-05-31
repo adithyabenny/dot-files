@@ -146,6 +146,7 @@ extract() {
     case "$1" in
       *.7z)       7z x "$1"               ;;
       *.bz2)      bunzip2 "$1"            ;;
+      *.deb)      ar x "$1"               ;;
       *.dmg)      7z x "$1"               ;;
       *.exe)      cabextract "$1"         ;;
       *.gz)       gunzip "$1"             ;;
@@ -156,6 +157,7 @@ extract() {
       *.r00)      unrar x "$1"            ;;
       *.r000)     unrar x "$1"            ;;
       *.rar)      unrar x "$1"            ;;
+      *.rpm)      tar vxzf "$1"           ;;
       *.tar)      tar vxf "$1"            ;;
       *.tar.bz2)  tar vxjf "$1"           ;;
       *.tbz2)     tar vxjf "$1"           ;;
