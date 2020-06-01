@@ -7,7 +7,7 @@ existing dot files will be taken prior to copying this over.
 
 -h, --help            print this help
 -a, --all             install all dot files
--e, --existing        skip file if it already exists
+-s, --skip-existing   skip installing the dot file if it already exists locally
 --bash                install the bash dot files
 --editline            install the editline config file
 --fasd                install the fasd config file
@@ -31,7 +31,7 @@ for arg in "$@" ; do
       HELP=1;;
     --all)
       INSTALL_ALL=1;;
-    --existing)
+    --skip-existing)
       SKIP_EXISTING=1;;
     --bash)
       INSTALL_BASH=1;;
@@ -55,13 +55,13 @@ for arg in "$@" ; do
       INSTALL_VIM=1;;
     -[!-]*)
       OPTIND=1
-      while getopts ":hae" short_arg $arg ; do
+      while getopts ":has" short_arg $arg ; do
         case "$short_arg" in
           h)
             HELP=1;;
           a)
             INSTALL_ALL=1;;
-          e)
+          s)
             SKIP_EXISTING=1;;
           *)
             print_usage_and_exit 1;;
