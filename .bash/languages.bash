@@ -10,7 +10,7 @@ export PATH="$PATH:$GOPATH/bin"
 # Java
 if [[ "$OSTYPE" == "linux"* ]] ; then
     export JAVA_HOME=$(
-        find "/usr/lib/jvm" -maxdepth 1 -mindepth 1 -type d | \
+        find "/usr/lib/jvm" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | \
                 sort -nr -t'-' -k2 | head -n1
     )
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
