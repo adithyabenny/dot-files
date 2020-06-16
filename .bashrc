@@ -14,6 +14,20 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
         source $BREW_PREFIX/share/bash-completion/bash_completion
 fi
 
+# add the following locations to $PATH if not already present
+path_list=(
+    "/bin"
+    "/sbin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/usr/local/bin"
+    "/usr/local/sbin"
+    "$HOME/bin"
+)
+for p in "${path_list[@]}" ; do
+    [[ ":$PATH:" != *":$p:"* ]] && PATH="$p:${PATH}"
+done
+
 # list of files to source
 for file in $HOME/.bash/*.bash ; do
     source "$file"
@@ -45,20 +59,6 @@ PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 
 # set the MySQL prompt
 export MYSQL_PS1="\u@\h [\d]> "
-
-# add the following locations to $PATH if not already present
-path_list=(
-    "/bin"
-    "/sbin"
-    "/usr/bin"
-    "/usr/sbin"
-    "/usr/local/bin"
-    "/usr/local/sbin"
-    "$HOME/bin"
-)
-for p in "${path_list[@]}" ; do
-    [[ ":$PATH:" != *":$p:"* ]] && PATH="$p:${PATH}"
-done
 
 # enable color support for the commonly used binaries
 if [[ "$OSTYPE" == "linux"* ]] ; then
