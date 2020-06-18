@@ -80,6 +80,62 @@ alias geo='geoiplookup'
 # requires executable from https://github.com/erniebrodeur/pushover
 alias push='pushover'
 
+# converts an IP address to the AS number
+# if an ASN is passed, then more details about it will be returned
+asn() {
+    local prefix domain output asn;
+    local input="$1"
+    # IPv4
+    if [[ $input =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
+        domain="origin.asn.cymru.com"
+        prefix="$(echo $input | tr '.' '\n' | tac | paste -sd'.')"
+        output="$(
+            command dig +short TXT $prefix.$domain | sort | head -n1 | \
+                sed -E 's/"//g'
+        )"
+        asn=$(echo "$output" | cut -d' ' -f1)
+        output+=" |$(
+            command dig +short TXT AS$asn.asn.cymru.com | sed -E 's/"//g' | \
+                rev | cut -d'|' -f1 | rev
+        )"
+    # IPv6
+    elif [[ ${input,,} == *:* ]] ; then
+        domain="origin6.asn.cymru.com"
+        local hextets=$(
+            echo "$input" | sed -E 's/::/:/g' | tr ':' '\n' | \
+                sed -E '/^$/d' | wc -l
+        )
+        local exploded_ip="$(
+            echo "$input" | sed -E "s/::/:$(yes "0:" | \
+                head -n $((8 - $hextets)) 2>/dev/null | \
+                paste -sd '')/g;s/:$//g"
+        )"
+        local prefix="$(
+            echo "$exploded_ip" | tr ':' '\n' | while read line ; do \
+                printf "%04x\n" 0x$line ; done | tac | rev | \
+                sed -E 's/./&\./g' | paste -sd '' | sed -E 's/\.$//g'
+        )"
+        output="$(
+            command dig +short TXT $prefix.$domain | sort | head -n1 | \
+                sed -E 's/"//g'
+        )"
+        asn=$(echo "$output" | cut -d' ' -f1)
+        output+=" |$(
+            command dig +short TXT AS$asn.asn.cymru.com | sed -E 's/"//g' | \
+                rev | cut -d'|' -f1 | rev
+        )"
+    # ASN
+    elif [[ ${input^^} =~ ^[0-9]+$|^AS[0-9]+$ ]] ; then
+        domain="asn.cymru.com"
+        prefix=$(echo "AS${input^^}" | sed -E 's/ASAS/AS/g')
+        output="$(command dig +short TXT $prefix.$domain | sed -E 's/"//g')"
+    else
+        echo "Ensure that the argument passed is either an IP or an ASN" >&2
+        return 2
+    fi
+    echo "$output"
+}
+
 # extract the contents of an archive
 # requires executable from http://p7zip.sourceforge.net/
 # requires executable from https://www.cabextract.org.uk/
