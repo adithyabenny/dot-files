@@ -10,6 +10,7 @@ export HOMEBREW_NO_ANALYTICS=1                                                # 
 
 alias gls='gls --color=auto'                                                  # export color scheme for GNU ls
 alias lck='pmset displaysleepnow'                                             # switch off display
+alias paste='gpaste'                                                          # use the GNU version by default
 alias shred='gshred -vfzu -n 10'                                              # securely erase the file
 alias slp='pmset sleepnow'                                                    # go to sleep
 
