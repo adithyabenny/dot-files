@@ -228,24 +228,28 @@ msync() {
 }
 
 # upload contents to Haste, an open-source Node.js pastebin
+# if no input is passed, then the contents of the clipboard will be used
 # echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
+# echo "export PASTEBIN_AUTH_BASIC='user:pass'" >>~/.bash/private.bash
 pb() {
-    local content response url
-    [[ -z "$PASTEBIN_URL" ]] && url="http://hastebin.com" || \
-        url="$PASTEBIN_URL"
+    local pb_url content response short_url
+    local curl_auth_arg=""
+    pb_url="${PASTEBIN_URL:-https://hastebin.com/}"
     if [[ -p /dev/stdin ]] ; then
-        content=$(cat)
+        content="$(cat)"
+    elif [[ "$OSTYPE" == "darwin"* ]] ; then
+        content="$(pbpaste)"
     else
-        if [[ "$OSTYPE" == "linux"* ]] ; then
-            return 2
-        elif [[ "$OSTYPE" == "darwin"* ]] ; then
-            content=$(pbpaste)
-        fi
+        return 2
     fi
-    response=$(curl -XPOST -s -d "$content" "$url/documents")
-    url=$(awk -F '"' -v url="$url/raw/" '{print url $4}' <<< "$response")
-    echo "$url"
-    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
+    [[ -n $PASTEBIN_AUTH_BASIC ]] && curl_auth_arg="-u $PASTEBIN_AUTH_BASIC"
+    response="$(
+        echo "$content" | \
+            curl -sS -XPOST $curl_auth_arg --data-binary @- "$pb_url/documents"
+    )"
+    short_url="$pb_url/$(echo "$response" | cut -d'"' -f4)"
+    echo "$short_url"
+    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$short_url"
 }
 
 # show public IP
