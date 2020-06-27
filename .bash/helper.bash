@@ -249,7 +249,7 @@ pb() {
     )"
     short_url="$pb_url/$(echo "$response" | cut -d'"' -f4)"
     echo "$short_url"
-    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$short_url"
+    [[ "$OSTYPE" == "darwin"* ]] && echo -n "$short_url" | pbcopy
 }
 
 # show public IP
@@ -282,5 +282,5 @@ url-shorten() {
     )"
     short_url="$(echo "$result" | jq '.shortUrl' | sed -E 's/"//g')"
     echo "$short_url"
-    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$short_url"
+    [[ "$OSTYPE" == "darwin"* ]] && echo -n "$short_url" | pbcopy
 }
