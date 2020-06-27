@@ -250,8 +250,9 @@ pb() {
 
 # show public IP
 pipp() {
-    command dig +short -4 A myip.opendns.com @resolver1.opendns.com
-    command dig +short -6 AAAA myip.opendns.com @resolver1.opendns.com
+    local DIG_OPTS="+short +timeout=1 +retry=1"
+    command dig $DIG_OPTS -4 A myip.opendns.com @resolver1.opendns.com
+    command dig $DIG_OPTS -6 AAAA myip.opendns.com @resolver1.opendns.com
 }
 
 # shorten the given URL using Shlink, an open-source URL Shortener
