@@ -188,35 +188,6 @@ his() {
     grep "$*" "$HISTFILE" | less +G
 }
 
-# like mv, but with progress bar
-msync() {
-    rsync --remove-source-files "$@"
-    if [[ $? -eq 0 ]] && [[ -d "$1" ]] ; then
-        find "$1" -type d -empty -delete
-    fi
-}
-
-# upload contents to Haste, an open-source Node.js pastebin
-# echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
-pb() {
-    local content response url
-    [[ -z "$PASTEBIN_URL" ]] && url="http://hastebin.com" || \
-        url="$PASTEBIN_URL"
-    if [[ -p /dev/stdin ]] ; then
-        content=$(cat)
-    else
-        if [[ "$OSTYPE" == "linux"* ]] ; then
-            return 2
-        elif [[ "$OSTYPE" == "darwin"* ]] ; then
-            content=$(pbpaste)
-        fi
-    fi
-    response=$(curl -XPOST -s -d "$content" "$url/documents")
-    url=$(awk -F '"' -v url="$url/raw/" '{print url $4}' <<< "$response")
-    echo "$url"
-    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
-}
-
 # list all network interfaces and their IPs
 ipp() {
     local interfaces interface ips ips_v4 ips_v6
@@ -248,8 +219,63 @@ ipp() {
     done
 }
 
+# like mv, but with progress bar
+msync() {
+    rsync --remove-source-files "$@"
+    if [[ $? -eq 0 ]] && [[ -d "$1" ]] ; then
+        find "$1" -type d -empty -delete
+    fi
+}
+
+# upload contents to Haste, an open-source Node.js pastebin
+# echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
+pb() {
+    local content response url
+    [[ -z "$PASTEBIN_URL" ]] && url="http://hastebin.com" || \
+        url="$PASTEBIN_URL"
+    if [[ -p /dev/stdin ]] ; then
+        content=$(cat)
+    else
+        if [[ "$OSTYPE" == "linux"* ]] ; then
+            return 2
+        elif [[ "$OSTYPE" == "darwin"* ]] ; then
+            content=$(pbpaste)
+        fi
+    fi
+    response=$(curl -XPOST -s -d "$content" "$url/documents")
+    url=$(awk -F '"' -v url="$url/raw/" '{print url $4}' <<< "$response")
+    echo "$url"
+    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$url"
+}
+
 # show public IP
 pipp() {
     command dig +short -4 A myip.opendns.com @resolver1.opendns.com
     command dig +short -6 AAAA myip.opendns.com @resolver1.opendns.com
+}
+
+# shorten the given URL using Shlink, an open-source URL Shortener
+# requires executable from https://github.com/stedolan/jq
+# echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash
+# echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash
+url-shorten() {
+    local url result short_url
+    url="$1"
+    if [[ -z $url ]] ; then
+        echo "Please pass the URL as the first argument" >&2
+        return 2
+    elif [[ ! $url =~ ^https?://[^\ ]+$ ]] ; then
+        echo "'$url' is not a valid URL" >&2
+        return 2
+    fi
+    result="$(
+        curl -sS -XPOST "$URL_SHORTENER_ENDPOINT/rest/v2/short-urls" \
+            -H "X-Api-Key: $URL_SHORTENER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -d "{\"longUrl\": \"$url\"}"
+    )"
+    short_url="$(echo "$result" | jq '.shortUrl' | sed -E 's/"//g')"
+    echo "$short_url"
+    [[ "$OSTYPE" == "darwin"* ]] && pbcopy <<< "$short_url"
 }
