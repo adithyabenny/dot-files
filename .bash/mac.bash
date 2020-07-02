@@ -39,26 +39,33 @@ clear-history() {
     # clear recent files
     osascript -e "tell application \"System Events\" to click menu item \
         \"Clear Menu\" of menu of menu item \"Recent Items\" of menu of \
-        menu bar item \"Apple\" of menu bar of process \"Finder\"" 1>/dev/null
-    [[ $? -eq 0 ]] && echo "Recent files cleared successfully" || \
-        echo "Unable to clear recent files" >2
+        menu bar item \"Apple\" of menu bar of process \"Finder\"" \
+        1>/dev/null && \
+        echo "Recent files cleared successfully" || \
+        echo "Unable to clear recent files" >&2
     # clear recent folders
     osascript -e "tell application \"System Events\" to click menu item \
         \"Clear Menu\" of menu of menu item \"Recent Folders\" of menu of \
-        menu bar item \"Go\" of menu bar of process \"Finder\"" 1>/dev/null
-    [[ $? -eq 0 ]] && echo "Recent folders cleared successfully" || \
-        echo "Unable to clear recent folders" >2
-    # open VLC
-    osascript -e "tell application \"VLC\" to activate" 1>/dev/null
-    # hide it from foreground
-    osascript -e "tell application \"Finder\" to set visible of process \
-        \"VLC\" to false" 1>/dev/null
-    # clear its recent files
-    osascript -e "tell application \"System Events\" to click menu item \
+        menu bar item \"Go\" of menu bar of process \"Finder\"" \
+        1>/dev/null && \
+        echo "Recent folders cleared successfully" || \
+        echo "Unable to clear recent folders" >&2
+    # clear Go to Folder
+    defaults delete com.apple.finder GoToField &>/dev/null
+    defaults delete com.apple.finder GoToFieldHistory &>/dev/null
+    killall Finder && \
+        echo "Go to Folder cleared successfully" || \
+        echo "Unable to clear Go to Folder" >&2
+    # clear VLC's recent files
+    osascript -e "tell application \"VLC\" to activate" 1>/dev/null && \
+        osascript -e "tell application \"Finder\" to set visible of process \
+        \"VLC\" to false" 1>/dev/null && \
+        osascript -e "tell application \"System Events\" to click menu item \
         \"Clear Menu\" of menu of menu item \"Open Recent\" of menu of menu \
-        bar item \"File\" of menu bar 1 of process \"VLC\"" 1>/dev/null
-    [[ $? -eq 0 ]] && echo "Recent VLC files cleared successfully" || \
-        echo "Unable to clear recent VLC files" >2
+        bar item \"File\" of menu bar 1 of process \"VLC\"" 1>/dev/null && \
+        killall VLC && \
+        echo "Recent VLC files cleared successfully" || \
+        echo "Unable to clear recent VLC files" >&2
 }
 
 # unmount all DMGs or external HDDs
