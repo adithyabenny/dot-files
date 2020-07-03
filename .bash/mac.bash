@@ -69,7 +69,7 @@ clear-history() {
 }
 
 # unmount all DMGs or external HDDs
-# passing -e will unmount just the external HDDs whereas anything else will unmount just the DMGs
+# pass -e to unmount just the external HDDs whereas anything else will unmount just the DMGs
 eject() {
     local volume volumes disk_type label device devices
     volumes=$(diskutil list | grep "/dev/disk")
@@ -109,7 +109,8 @@ _notify() {
     operation_title="${operation_title:-Job}"
     operation_item="${operation_item:-operation(s)}"
     for word in "$@" ; do
-        [[ "$word" == "-p" ]] && push_notify=true || words+=" $word"
+        [[ "$word" == "-p" ]] || [[ "$word" == "--push" ]] && \
+            push_notify=true || words+=" $word"
     done
     [[ -z "$words" ]] && words=$(pbpaste)
     no_of_arguments=$(wc -w <<< "$words" | tr -d ' ')

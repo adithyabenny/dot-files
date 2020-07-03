@@ -76,10 +76,6 @@ eval "$(thefuck --alias)"
 # requires executable from https://packages.debian.org/stretch/geoip-bin
 alias geo='geoiplookup'
 
-# send push notifications to your mobile device via the web service Pushover
-# requires executable from https://github.com/erniebrodeur/pushover
-alias push='pushover'
-
 # converts an IP address to the AS number
 # if an ASN is passed, then more details about it will be returned
 asn() {
@@ -257,6 +253,26 @@ pipp() {
     command dig $DIG_OPTS -4 A myip.opendns.com @resolver1.opendns.com
     command dig $DIG_OPTS -6 AAAA myip.opendns.com @resolver1.opendns.com
 }
+
+# send push notifications to your mobile device via the service Pushover
+# pass -h or --high as an argument to set the message's Priority to high
+# echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash
+# echo "export PUSHOVER_TOKEN='<token>'" >>~/.bash/private.bash
+push() {
+    local priority=0
+    [[ "$1" == "-h" ]] || [[ "$1" == "--high" ]] && priority=1 && shift
+    local message="$1"
+    if [[ -z "$message" ]] ; then
+        echo "Please pass a message to push as an argument" >&2
+        return 2
+    fi
+    curl -sS --form-string "user=$PUSHOVER_USER" \
+        --form-string "token=$PUSHOVER_TOKEN" \
+        --form-string "priority=$priority" \
+        --form-string "message=$1" \
+        "https://api.pushover.net/1/messages.json" 1>/dev/null
+}
+
 
 # shorten the given URL using Shlink, an open-source URL Shortener
 # requires executable from https://github.com/stedolan/jq
