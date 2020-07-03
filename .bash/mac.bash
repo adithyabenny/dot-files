@@ -81,7 +81,7 @@ eject() {
         fi
     done <<< $volumes
     for device in $devices ; do
-        hdiutil detach $device
+        diskutil eject $device
     done
 }
 
