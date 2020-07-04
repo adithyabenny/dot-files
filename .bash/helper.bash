@@ -249,9 +249,10 @@ pb() {
 
 # show public IP
 pipp() {
-    local DIG_OPTS="+short +timeout=1 +retry=1"
-    command dig $DIG_OPTS -4 A myip.opendns.com @resolver1.opendns.com
-    command dig $DIG_OPTS -6 AAAA myip.opendns.com @resolver1.opendns.com
+    local DIG_OPTS="+short +timeout=1 +retry=1 \
+        myip.opendns.com @resolver1.opendns.com"
+    command dig -4 A $DIG_OPTS
+    command dig -6 AAAA $DIG_OPTS
 }
 
 # send push notifications to your mobile device via the service Pushover
