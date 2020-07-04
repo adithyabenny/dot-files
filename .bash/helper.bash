@@ -184,7 +184,7 @@ ipp() {
     local interfaces interface ips ips_v4 ips_v6
     interfaces=$(
         ifconfig | awk -F '[ \t]+' '{print $1}' | sed '/^$/d' | \
-            cut -d':' -f1 | grep -v 'lo'
+            rev | cut -d':' -f2- | rev | grep -v 'lo'
     )
     for interface in $interfaces ; do
         ips=$(
