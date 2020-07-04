@@ -34,7 +34,8 @@ for file in $HOME/.bash/*.bash ; do
 done
 
 # when over SSH, attach to Tmux right away if present
-[[ -n $SSH_CONNECTION ]] && [[ -z $TMUX ]] && tmux attach &>/dev/null
+[[ -n $SSH_CONNECTION ]] && [[ -z $DONT_TMUX_ATTACH ]] && [[ -z $TMUX ]] \
+    && tmux attach &>/dev/null
 
 # load Git info (used in the prompt below)
 if type -t __git_ps1 >/dev/null ; then
