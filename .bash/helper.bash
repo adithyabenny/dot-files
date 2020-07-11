@@ -87,8 +87,8 @@ asn() {
         )"
         asn=$(echo "$output" | cut -d' ' -f1)
         output+=" |$(
-            command dig +short TXT AS$asn.asn.cymru.com | sed -E 's/"//g' | \
-                rev | cut -d'|' -f1 | rev
+            command dig +short TXT AS$asn.asn.cymru.com | \
+                awk -F'|' '{gsub(/"/, ""); print $5}'
         )"
     # IPv6
     elif [[ ${input,,} == *:* ]] ; then
@@ -113,8 +113,8 @@ asn() {
         )"
         asn=$(echo "$output" | cut -d' ' -f1)
         output+=" |$(
-            command dig +short TXT AS$asn.asn.cymru.com | sed -E 's/"//g' | \
-                rev | cut -d'|' -f1 | rev
+            command dig +short TXT AS$asn.asn.cymru.com | \
+                awk -F'|' '{gsub(/"/, ""); print $5}'
         )"
     # ASN
     elif [[ ${input^^} =~ ^[0-9]+$|^AS[0-9]+$ ]] ; then
