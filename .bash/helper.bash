@@ -181,32 +181,17 @@ his() {
 
 # list all network interfaces and their IPs
 ipp() {
-    local interfaces interface ips ips_v4 ips_v6
-    interfaces=$(
-        ifconfig | awk -F '[ \t]+' '{print $1}' | sed '/^$/d' | \
-            rev | cut -d':' -f2- | rev | grep -v 'lo'
-    )
-    for interface in $interfaces ; do
-        ips=$(
-            ifconfig $interface 2>/dev/null | grep "inet" | \
-                sed -E 's/addr:\ ?//g' | awk '{print $2}' | \
-                egrep -v "^169\.254|^fe80::"
-        )
-        if [[ -n "$ips" ]] ; then
-            ips_v4=$(echo "$ips" | grep "\." | sort -n | sed 's/^/\t/g')
-            ips_v6=$(
-                echo "$ips" | grep ":" | sort -n | \
-                    sed 's/^/\t/g' | cut -d'/' -f1
-            )
-            if [[ -z "$ips_v4" ]] ; then
-                ips="$interface:$ips_v6"
-            elif [[ -z "$ips_v6" ]] ; then
-                ips="$interface:$ips_v4"
-            else
-                ips="$interface:$ips_v4\n$ips_v6"
-            fi
-            echo -e "$ips"
-        fi
+    local interfaces ips
+    interfaces="$(
+        ifconfig | awk '!/^\s+/ && !/^$/ {gsub(/:$/, "", $1); print $1}'
+    )"
+    for i in $interfaces ; do
+        ips="$(
+            ifconfig $i 2>/dev/null | awk '{gsub(/addr: */, "")} /inet/ && \
+                !/inet 127/ && !/inet6 ::1/ && !/inet 169.254/ && \
+                !/inet6 fe80::/ {print "\t"$2}'
+        )"
+        [[ -n "$ips" ]] && echo -e "${i}${ips}"
     done
 }
 
