@@ -1,3 +1,15 @@
+# This file has been generated using the following commands
+#
+# fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >fasd.bash
+# cat << EOF >>fasd.bash
+# if [[ "\$OSTYPE" == "darwin"* ]] ; then
+#     alias o='a -e open'
+#     _fasd_bash_hook_cmd_complete o
+# fi
+# alias v='f -t -e vim -b viminfo'
+# _fasd_bash_hook_cmd_complete v
+# EOF
+
 alias a='fasd -a'
 alias s='fasd -si'
 alias sd='fasd -sid'
@@ -57,3 +69,9 @@ _fasd_bash_hook_cmd_complete() {
 # enable bash command mode completion
 _fasd_bash_hook_cmd_complete fasd a s d f sd sf z zz
 
+if [[ "$OSTYPE" == "darwin"* ]] ; then
+    alias o='a -e open'
+    _fasd_bash_hook_cmd_complete o
+fi
+alias v='f -t -e vim -b viminfo'
+_fasd_bash_hook_cmd_complete v

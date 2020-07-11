@@ -57,17 +57,6 @@ alias zgrep='grep --color=auto '
 alias zegrep='egrep --color=auto '
 alias zfgrep='fgrep --color=auto '
 
-# load aliases for Fasd
-# requires executable from https://github.com/clvv/fasd
-if [[ "$OSTYPE" == "linux"* ]] ; then
-    alias o='a -e xdg-open'
-elif [[ "$OSTYPE" == "darwin"* ]] ; then
-    alias o='a -e open'
-fi
-alias v='f -t -e vim -b viminfo'
-_fasd_bash_hook_cmd_complete o v
-
-
 # shortcut for geolocating IPs
 # requires executable from https://packages.debian.org/stretch/geoip-bin
 alias geo='geoiplookup'
