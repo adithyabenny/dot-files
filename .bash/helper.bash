@@ -76,13 +76,12 @@ asn() {
     elif [[ ${input,,} == *:* ]] ; then
         domain="origin6.asn.cymru.com"
         local hextets=$(
-            echo "$input" | sed -E 's/::/:/g' | tr ':' '\n' | \
-                sed -E '/^$/d' | wc -l
+            echo "$input" | sed 's/::/:/g;s/:/\n/g' | sed '/^$/d' | wc -l
         )
         local exploded_ip="$(
             echo "$input" | sed -E "s/::/:$(yes "0:" | \
                 head -n $((8 - $hextets)) 2>/dev/null | \
-                paste -sd '')/g;s/:$//g"
+                paste -sd '')/g;s/^://g;s/:$//g"
         )"
         local prefix="$(
             echo "$exploded_ip" | tr ':' '\n' | while read line ; do \
