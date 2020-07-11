@@ -9,7 +9,7 @@
 # display possible completions using different color
 set colored-stats on
 # filename matching is case sensitive
-set completion-ignore-case off
+set completion-ignore-case on
 # treat '-' and '_' as equivalent when performing filename matching
 set completion-map-case on
 # common prefixes longer than this value is replaced with an ellipsis
