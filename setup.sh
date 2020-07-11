@@ -95,10 +95,6 @@ EXCLUDE_FILES='--exclude={*.swp,.git,.gitignore,README.md,setup.sh}'
 
 rsync -avzh --copy-links $OVERWRITE_SETTINGS $(eval "echo $EXCLUDE_FILES") $(eval "echo $SOURCE") "$TARGET"
 
-if [[ $INSTALL_ALL == 1 || $INSTALL_BASH == 1 ]] ; then
-  curl 'https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh' -o "$TARGET/.bash/git-prompt.bash"
-fi
-
 if [[ $INSTALL_ALL == 1 || $INSTALL_SSH == 1 ]] ; then
   chmod 700 "$TARGET/.ssh"
   chmod 644 "$TARGET/.ssh/config"
