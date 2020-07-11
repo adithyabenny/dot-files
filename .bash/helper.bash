@@ -45,17 +45,10 @@ alias xargs='xargs -rd\\n '                                                    #
 
 # colorize output
 if [[ "$OSTYPE" == "linux"* ]] ; then
-    alias dir='dir --color=auto'
     alias ls='ls --color=auto'
-    alias vdir='vdir --color=auto'
 fi
-alias egrep='egrep --color=auto '
-alias fgrep='fgrep --color=auto '
 alias grep='grep --color=auto '
 alias watch='watch --color '
-alias zgrep='grep --color=auto '
-alias zegrep='egrep --color=auto '
-alias zfgrep='fgrep --color=auto '
 
 # shortcut for geolocating IPs
 # requires executable from https://packages.debian.org/stretch/geoip-bin
