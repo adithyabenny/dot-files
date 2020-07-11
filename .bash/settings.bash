@@ -20,3 +20,7 @@ shopt -s globstar                                # expand "**" to match files in
 shopt -s histappend                              # append to history rather than overwrite (avoid histoy loss)
 shopt -s hostcomplete                            # tab-completion of hostnames after @
 shopt -s nocaseglob                              # let file name expansions be case insensitive
+
+# requires executable from https://github.com/junegunn/fzf
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden"
+export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all'"
