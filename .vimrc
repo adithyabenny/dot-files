@@ -57,11 +57,11 @@ map <Esc>q :q!<CR>
 " F2 will toggle the option to paste text unmodified
 set pastetoggle=<F2>
 " F3 will remove all trailing whitespaces
-nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+nnoremap <silent> <F3> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s<CR>
 " F4 will toggle spell check
 map <F4> :setlocal spell!<CR>
 " F5 will toggle absolute line numbers
-map <F5> :set nu!<CR>
+map <F5> :set nu! <Bar> :GitGutterSignsToggle<CR>
 " F6 will toggle relative line numbers
 map <F6> :set rnu!<CR>
 
@@ -76,7 +76,7 @@ Plug 'scrooloose/syntastic'                                          " syntax ch
 Plug 'tpope/vim-surround'                                            " quoting/parenthesizing made simple
 Plug 'scrooloose/nerdcommenter'                                      " powerful comment functions
 Plug 'airblade/vim-gitgutter'                                        " show git diff in the sign column
-Plug 'chr4/nginx.vim'                                                " syntax highlight Nginx config files
+Plug 'chr4/nginx.vim'                                                " recognize Nginx config files
 call plug#end()
 " Syntastic plugin settings
 set statusline+=%#WarningMsg#                                        " enable highlight group 'WarningMsg'
