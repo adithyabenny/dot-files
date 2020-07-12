@@ -34,7 +34,9 @@ cdf() {
     fi
 }
 
-# clears all recent files accessed through the GUI
+# clears all recent files accessed through the GUI and CLI
+# echo "export CLEAR_HISTORY_BASH_KEYWORDS='<keyword1:keyword2>'" >>~/.bash/private.bash
+# echo "export CLEAR_HISTORY_FASD_PATH='<path1:path2>'" >>~/.bash/private.bash
 clear-history() {
     # clear recent files
     osascript -e "tell application \"System Events\" to click menu item \
@@ -66,6 +68,17 @@ clear-history() {
         killall VLC && \
         echo "Recent VLC files cleared successfully" || \
         echo "Unable to clear recent VLC files" >&2
+    # clear Bash keywords
+    if [[ -n "$CLEAR_HISTORY_BASH_KEYWORDS" ]] ; then
+        local hist_file="${HISTFILE:-$HOME/.bash_history}"
+        local tmp_file="$(mktemp)"
+        echo -e "${CLEAR_HISTORY_BASH_KEYWORDS//:/\\n}" | while read k ; do
+            tac "$hist_file" | sed "/${k//\//\\/}/,+1d" | tac >"$tmp_file" && \
+                command cp -f "$tmp_file" "$hist_file"
+        done &&  echo "Bash history keywords cleared successfully" || \
+            echo "Unable to clear Bash history keywords" >&2
+    fi
+    # clear Fasd paths
     if [[ -n "$CLEAR_HISTORY_FASD_PATH" ]] ; then
         echo -e "${CLEAR_HISTORY_FASD_PATH//:/\\n}" | while read p ; do
             sed -i "/${p//\//\\/}/d" "${_FASD_DATA:-$HOME/.fasd}"
