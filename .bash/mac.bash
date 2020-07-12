@@ -66,6 +66,12 @@ clear-history() {
         killall VLC && \
         echo "Recent VLC files cleared successfully" || \
         echo "Unable to clear recent VLC files" >&2
+    if [[ -n "$CLEAR_HISTORY_FASD_PATH" ]] ; then
+        echo -e "${CLEAR_HISTORY_FASD_PATH//:/\\n}" | while read p ; do
+            sed -i "/${p//\//\\/}/d" "${_FASD_DATA:-$HOME/.fasd}"
+        done &&  echo "Fasd paths cleared successfully" || \
+            echo "Unable to clear Fasd paths" >&2
+    fi
 }
 
 # unmount all DMGs or external HDDs
