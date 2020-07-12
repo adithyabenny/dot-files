@@ -64,6 +64,8 @@ map <F4> :setlocal spell!<CR>
 map <F5> :set nu! <Bar> :GitGutterSignsToggle<CR>
 " F6 will toggle relative line numbers
 map <F6> :set rnu!<CR>
+" F9 will toggle all control characters
+map <F9> :set list!<CR>
 
 
 " Plugins
