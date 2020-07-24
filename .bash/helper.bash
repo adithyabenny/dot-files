@@ -67,6 +67,7 @@ asn() {
             command dig +short TXT $prefix.$domain | sort | head -n1 | \
                 sed -E 's/"//g'
         )"
+        [[ -z "$output" ]] && return
         asn=$(echo "$output" | cut -d' ' -f1)
         output+=" |$(
             command dig +short TXT AS$asn.asn.cymru.com | \
@@ -92,6 +93,7 @@ asn() {
             command dig +short TXT $prefix.$domain | sort | head -n1 | \
                 sed -E 's/"//g'
         )"
+        [[ -z "$output" ]] && return
         asn=$(echo "$output" | cut -d' ' -f1)
         output+=" |$(
             command dig +short TXT AS$asn.asn.cymru.com | \
