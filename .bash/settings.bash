@@ -22,5 +22,5 @@ shopt -s hostcomplete                            # tab-completion of hostnames a
 shopt -s nocaseglob                              # let file name expansions be case insensitive
 
 # requires executable from https://github.com/junegunn/fzf
-export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs --hidden"
+export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all'"
