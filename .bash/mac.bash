@@ -73,7 +73,7 @@ clear-history() {
         local hist_file="${HISTFILE:-$HOME/.bash_history}"
         local tmp_file="$(mktemp)"
         echo -e "${CLEAR_HISTORY_BASH_KEYWORDS//:/\\n}" | while read k ; do
-            tac "$hist_file" | sed "/${k//\//\\/}/,+1d" | tac >"$tmp_file" && \
+            tail -r "$hist_file" | sed "/${k//\//\\/}/,+1d" | tail -r >"$tmp_file" && \
                 command cp -f "$tmp_file" "$hist_file"
         done &&  echo "Bash history keywords cleared successfully" || \
             echo "Unable to clear Bash history keywords" >&2

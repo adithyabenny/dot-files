@@ -62,7 +62,7 @@ asn() {
     # IPv4
     if [[ $input =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]] ; then
         domain="origin.asn.cymru.com"
-        prefix="$(echo $input | tr '.' '\n' | tac | paste -sd'.')"
+        prefix="$(echo $input | tr '.' '\n' | tail -r | paste -sd'.')"
         output="$(
             command dig +short TXT $prefix.$domain | sort | head -n1 | \
                 sed -E 's/"//g'
@@ -86,7 +86,7 @@ asn() {
         )"
         local prefix="$(
             echo "$exploded_ip" | tr ':' '\n' | while read line ; do \
-                printf "%04x\n" 0x$line ; done | tac | rev | \
+                printf "%04x\n" 0x$line ; done | tail -r | rev | \
                 sed -E 's/./&\./g' | paste -sd '' | sed -E 's/\.$//g'
         )"
         output="$(
