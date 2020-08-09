@@ -244,8 +244,8 @@ push() {
 # echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash
 # echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash
 url-shorten() {
-    local url result short_url
-    url="$1"
+    local url result short_url custom_slug
+    local url="$1"
     if [[ -z $url ]] ; then
         echo "Please pass the URL as the first argument" >&2
         return 2
@@ -253,14 +253,19 @@ url-shorten() {
         echo "'$url' is not a valid URL" >&2
         return 2
     fi
+    [[ -n "$2" ]] && custom_slug=", \"customSlug\": \"$2\""
     result="$(
         curl -sS -XPOST "$URL_SHORTENER_ENDPOINT/rest/v2/short-urls" \
             -H "X-Api-Key: $URL_SHORTENER_API_KEY" \
             -H "Content-Type: application/json" \
             -H "Accept: application/json" \
-            -d "{\"longUrl\": \"$url\"}"
+            -d "{\"longUrl\": \"$url\"$custom_slug}"
     )"
-    short_url="$(echo "$result" | jq '.shortUrl' | sed -E 's/"//g')"
+    if [[ "$(jq '.type' <<< "$result")" == "\"INVALID_SLUG\"" ]] ; then
+        echo "The slug '$2' is already in use" >&2
+        return 2
+    fi
+    short_url="$(jq '.shortUrl' <<< "$result" | sed -E 's/"//g')"
     echo "$short_url"
     [[ "$OSTYPE" == "darwin"* ]] && echo -n "$short_url" | pbcopy
 }
