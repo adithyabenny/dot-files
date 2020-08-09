@@ -255,15 +255,17 @@ url-shorten() {
     fi
     [[ -n "$2" ]] && custom_slug=", \"customSlug\": \"$2\""
     result="$(
-        curl -sS -XPOST "$URL_SHORTENER_ENDPOINT/rest/v2/short-urls" \
+        curl -sS -X POST "$URL_SHORTENER_ENDPOINT/rest/v2/short-urls" \
             -H "X-Api-Key: $URL_SHORTENER_API_KEY" \
             -H "Content-Type: application/json" \
-            -H "Accept: application/json" \
             -d "{\"longUrl\": \"$url\"$custom_slug}"
     )"
     if [[ "$(jq '.type' <<< "$result")" == "\"INVALID_SLUG\"" ]] ; then
-        echo "The slug '$2' is already in use" >&2
-        return 2
+       curl -sS -X PATCH "$URL_SHORTENER_ENDPOINT/rest/v2/short-urls/$2" \
+            -H "X-Api-Key: $URL_SHORTENER_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"longUrl\": \"$url\"}" && \
+            result="{\"shortUrl\": \"$URL_SHORTENER_ENDPOINT/$2\"}"
     fi
     short_url="$(jq '.shortUrl' <<< "$result" | sed -E 's/"//g')"
     echo "$short_url"
