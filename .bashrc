@@ -9,9 +9,9 @@ if [[ "$OSTYPE" == "linux"* ]] ; then
     [[ -f /usr/share/bash-completion/bash_completion ]] && \
         source /usr/share/bash-completion/bash_completion
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
-    BREW_PREFIX=$(brew --prefix)
-    [[ -f $BREW_PREFIX/share/bash-completion/bash_completion ]] && \
-        source $BREW_PREFIX/share/bash-completion/bash_completion
+    BREW_PREFIX="$(brew --prefix)"
+    [[ -f "$BREW_PREFIX/share/bash-completion/bash_completion" ]] && \
+        source "$BREW_PREFIX/share/bash-completion/bash_completion"
 fi
 
 # add the following locations to $PATH if not already present
@@ -29,7 +29,7 @@ for p in "${path_list[@]}" ; do
 done
 
 # list of files to source
-for file in $HOME/.bash/*.bash ; do
+for file in "$HOME"/.bash/*.bash ; do
     source "$file"
 done
 
