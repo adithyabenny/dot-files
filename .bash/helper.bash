@@ -116,9 +116,7 @@ asn() {
 # requires executable from https://www.cabextract.org.uk/
 # requires executable from http://www.rarlab.com
 extract() {
-    local file
     if [[ -f "$1" ]] ; then
-        file=$(echo "$1" | rev | cut -d'.' -f2- | rev)
         case "$1" in
             *.7z)       7z x "$1"               ;;
             *.tar.bz2)  tar xjf "$1"            ;;
@@ -128,7 +126,7 @@ extract() {
             *.tar.gz)   tar xzf "$1"            ;;
             *.gz)       gunzip "$1"             ;;
             *.jar)      7z x "$1"               ;;
-            *.iso)      7z x "$1" -o"$file"     ;;
+            *.iso)      7z x "$1" -o"${1%.*}"   ;;
             *.lzma)     unlzma "$!"             ;;
             *.r0)       unrar x "$1"            ;;
             *.r00)      unrar x "$1"            ;;
