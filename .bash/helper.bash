@@ -121,9 +121,11 @@ extract() {
         file=$(echo "$1" | rev | cut -d'.' -f2- | rev)
         case "$1" in
             *.7z)       7z x "$1"               ;;
+            *.tar.bz2)  tar xjf "$1"            ;;
             *.bz2)      bunzip2 "$1"            ;;
             *.deb)      ar x "$1"               ;;
             *.exe)      cabextract "$1"         ;;
+            *.tar.gz)   tar xzf "$1"            ;;
             *.gz)       gunzip "$1"             ;;
             *.jar)      7z x "$1"               ;;
             *.iso)      7z x "$1" -o"$file"     ;;
@@ -134,9 +136,7 @@ extract() {
             *.rar)      unrar x "$1"            ;;
             *.rpm)      tar xzf "$1"            ;;
             *.tar)      tar xf "$1"             ;;
-            *.tar.bz2)  tar xjf "$1"            ;;
             *.tbz2)     tar xjf "$1"            ;;
-            *.tar.gz)   tar xzf "$1"            ;;
             *.tgz)      tar xzf "$1"            ;;
             *.tar.xz)   tar xJf "$1"            ;;
             *.xz)       unxz "$1"               ;;
