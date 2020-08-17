@@ -186,8 +186,9 @@ msync() {
 
 # upload contents to Haste, an open-source Node.js pastebin
 # if no input is passed, then the contents of the clipboard will be used
-# echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash
-# echo "export PASTEBIN_AUTH_BASIC='user:pass'" >>~/.bash/private.bash
+# requires additional configuration
+#   `echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash`
+#   `echo "export PASTEBIN_AUTH_BASIC='user:pass'" >>~/.bash/private.bash`
 pb() {
     local pb_url content response short_url
     local curl_auth_arg=""
@@ -219,8 +220,9 @@ pipp() {
 
 # send push notifications to your mobile device via the service Pushover
 # pass -h or --high as an argument to set the message's Priority to high
-# echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash
-# echo "export PUSHOVER_TOKEN='<token>'" >>~/.bash/private.bash
+# requires additional configuration
+#   `echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash`
+#   `echo "export PUSHOVER_TOKEN='<token>'" >>~/.bash/private.bash`
 push() {
     local priority=0
     [[ "$1" == "-h" ]] || [[ "$1" == "--high" ]] && priority=1 && shift
@@ -240,8 +242,9 @@ push() {
 # shorten the given URL using Shlink, an open-source URL Shortener
 # requires additional packages
 #   `apt install jq`
-# echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash
-# echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash
+# requires additional configuration
+#   `echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash`
+#   `echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash`
 url-shorten() {
     local url result short_url custom_slug
     local url="$1"
