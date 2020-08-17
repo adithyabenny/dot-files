@@ -83,7 +83,7 @@ done
 
 
 cd "$(dirname "$0")"
-git submodule update --init --recursive
+command git submodule update --init --recursive
 SOURCE=""
 TARGET="$HOME"
 EXCLUDE_FILES="--exclude ./.bash/fzf.bindings.bash --exclude ./.bash/fzf.completion.bash"
@@ -115,16 +115,16 @@ fi
 [[ $INSTALL_VIM == 1 ]] && SOURCE+=" ./.vimrc"
 [[ "$OSTYPE" != "darwin"* ]] && EXCLUDE_FILES+=" --exclude=./.bash/mac.bash"
 check_if_installed "rsync"
-rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
+command rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
 
 
 if [[ $INSTALL_SSH == 1 ]]; then
-    chmod 700 "$TARGET/.ssh"
-    chmod 644 "$TARGET/.ssh/config"
+    command chmod 700 "$TARGET/.ssh"
+    command chmod 644 "$TARGET/.ssh/config"
 fi
 if [[ $INSTALL_VIM == 1 ]]; then
     check_if_installed "curl"
-    curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    command curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     check_if_installed "vim"
-    vim +PlugInstall +qall
+    command vim +PlugInstall +qall
 fi
