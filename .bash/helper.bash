@@ -35,7 +35,7 @@ if [[ "$OSTYPE" == "linux"* ]] ; then
     alias port='sudo ss -tulpn'                                                # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
     alias osv='sw_vers'                                                        # output Mac system version
-    alias port='sudo lsof -nP -i4 -iudp -itcp -stcp:listen | grep -v "\:\*"'   # show all IPv4 ports listening for connections
+    alias port='sudo lsof -nP -iudp -itcp -stcp:listen | grep -v ":\*"'        # show all ports listening for connections
 fi
 
 # run with specific settings
