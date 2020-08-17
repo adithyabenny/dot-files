@@ -51,7 +51,8 @@ alias grep='grep --color=auto '
 alias watch='watch --color '
 
 # shortcut for geolocating IPs
-# requires executable from https://packages.debian.org/stretch/geoip-bin
+# requires additional packages
+#   `apt install geoip-bin geoip-database geoip-database-extra`
 alias geo='geoiplookup'
 
 # converts an IP address to the AS number
@@ -112,9 +113,8 @@ asn() {
 }
 
 # extract the contents of an archive
-# requires executable from http://p7zip.sourceforge.net/
-# requires executable from https://www.cabextract.org.uk/
-# requires executable from http://www.rarlab.com
+# requires additional packages
+#   `apt install p7zip-full binutils cabextract xz-utils unrar-free`
 extract() {
     if [[ -f "$1" ]] ; then
         case "$1" in
@@ -238,7 +238,8 @@ push() {
 
 
 # shorten the given URL using Shlink, an open-source URL Shortener
-# requires executable from https://github.com/stedolan/jq
+# requires additional packages
+#   `apt install jq`
 # echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash
 # echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash
 url-shorten() {

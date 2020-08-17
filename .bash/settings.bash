@@ -21,6 +21,7 @@ shopt -s histappend                              # append to history rather than
 shopt -s hostcomplete                            # tab-completion of hostnames after @
 shopt -s nocaseglob                              # let file name expansions be case insensitive
 
-# requires executable from https://github.com/junegunn/fzf
+# requires additional packages
+#   `apt install fzf`
 export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all'"

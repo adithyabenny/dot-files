@@ -15,7 +15,8 @@ alias shred='gshred -vfzu -n 10'                                              # 
 alias slp='pmset sleepnow'                                                    # go to sleep
 
 # send notification and make a sound
-# requires executable from https://github.com/julienXX/terminal-notifier
+# requires additional packages
+#   `brew install terminal-notifier`
 alias notify='terminal-notifier -sound Ping -message'
 
 # change directory to the one open in Finder

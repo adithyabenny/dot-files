@@ -1,5 +1,6 @@
 # set alias for 'The Fuck' utility
-# requires executable from https://github.com/nvbn/thefuck
+# requires additional packages
+#   `pip install thefuck`
 fuck () {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
     export TF_SHELL=bash;
