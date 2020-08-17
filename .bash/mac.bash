@@ -16,7 +16,7 @@ alias slp='pmset sleepnow'                                                    # 
 
 # send notification and make a sound
 # requires additional packages
-#   `brew install terminal-notifier`
+#     `brew install terminal-notifier`
 alias notify='terminal-notifier -sound Ping -message'
 
 # change directory to the one open in Finder
@@ -37,8 +37,8 @@ cdf() {
 
 # clears all recent files accessed through the GUI and CLI
 # optional additional configuration
-#   `echo "export CLEAR_HISTORY_BASH_KEYWORDS='<keyword1:keyword2>'" >>~/.bash/private.bash`
-#   `echo "export CLEAR_HISTORY_FASD_PATH='<path1:path2>'" >>~/.bash/private.bash`
+#     `echo "export CLEAR_HISTORY_BASH_KEYWORDS='<keyword1:keyword2>'" >>~/.bash/private.bash`
+#     `echo "export CLEAR_HISTORY_FASD_PATH='<path1:path2>'" >>~/.bash/private.bash`
 clear-history() {
     # clear recent files
     osascript -e "tell application \"System Events\" to click menu item \
@@ -90,7 +90,9 @@ clear-history() {
 }
 
 # unmount all DMGs or external HDDs
-# pass -e to unmount just the external HDDs whereas anything else will unmount just the DMGs
+# Usage:
+#     unmount               unmount the DMGs
+#     unmount -e            unmount the HDDs
 eject() {
     local volume volumes disk_type label device devices
     volumes=$(diskutil list | grep "/dev/disk")
@@ -108,21 +110,17 @@ eject() {
 
 
 # wrapper for notifying user on the status of an operation on an array of items
-# upon completion, the user is notified on the Desktop by default
-# pass -p as an argument for an additional Cell phone notification
-# the array of items are to be given as arguments to the function
-# if no item is given, it will take the first item from the Clipboard
-# sample usage:
-# download() {
-#   local operation operation_title operation_item
-#   read -r -d '' operation <<'EOF'
-#   aria2c "$item" ;    # ensure semicolon for multi-line operations
-#   EOF                 # no whitespace to be there to the left of EOF
-#   operation="$operation" operation_title="Download" operation_item="file(s)" _notify "$@"
-# }
-# download <file1> <file2>        # downloads both files sequentially, then notifies user on Desktop
-# download -p <file>              # downloads file, notifies user on Desktop and Cell phone
-# download                        # downloads file whose link is there on the clipboard, notifies user on Desktop
+# Usage:
+#     download() {
+#         local operation operation_title operation_item
+#         read -r -d '' operation <<'EOF'
+#         aria2c "$item" ;    # ensure semicolon for multi-line operations
+#         EOF                 # no whitespace to be there to the left of EOF
+#         operation="$operation" operation_title="Download" operation_item="file(s)" _notify "$@"
+#     }
+#     download <file1> <file2>        downloads both files sequentially, then notifies user on Desktop
+#     download -p <file>              downloads file, notifies user on Desktop and Cell phone
+#     download                        downloads file whose link is there on the clipboard, notifies user on Desktop
 _notify() {
     local push_notify words word no_of_arguments total_failed message
     words=""

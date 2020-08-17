@@ -52,7 +52,7 @@ alias watch='watch --color '
 
 # shortcut for geolocating IPs
 # requires additional packages
-#   `apt install geoip-bin geoip-database geoip-database-extra`
+#     `apt install geoip-bin geoip-database geoip-database-extra`
 alias geo='geoiplookup'
 
 # converts an IP address to the AS number
@@ -114,7 +114,7 @@ asn() {
 
 # extract the contents of an archive
 # requires additional packages
-#   `apt install p7zip-full binutils cabextract xz-utils unrar-free`
+#     `apt install p7zip-full binutils cabextract xz-utils unrar-free`
 extract() {
     if [[ -f "$1" ]] ; then
         case "$1" in
@@ -187,8 +187,8 @@ msync() {
 # upload contents to Haste, an open-source Node.js pastebin
 # if no input is passed, then the contents of the clipboard will be used
 # requires additional configuration
-#   `echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash`
-#   `echo "export PASTEBIN_AUTH_BASIC='user:pass'" >>~/.bash/private.bash`
+#     `echo "export PASTEBIN_URL='<url-of-pastebin>'" >>~/.bash/private.bash`
+#     `echo "export PASTEBIN_AUTH_BASIC='user:pass'" >>~/.bash/private.bash`
 pb() {
     local pb_url content response short_url
     local curl_auth_arg=""
@@ -219,10 +219,13 @@ pipp() {
 }
 
 # send push notifications to your mobile device via the service Pushover
-# pass -h or --high as an argument to set the message's Priority to high
 # requires additional configuration
-#   `echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash`
-#   `echo "export PUSHOVER_TOKEN='<token>'" >>~/.bash/private.bash`
+#     `echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash`
+#     `echo "export PUSHOVER_TOKEN='<token>'" >>~/.bash/private.bash`
+# token can be fetched from here (https://pushover.net/apps/build)
+# Usage:
+#     push foo              sends the message 'foo'
+#     push -h bar           sends the message 'bar' with high priority
 push() {
     local priority=0
     [[ "$1" == "-h" ]] || [[ "$1" == "--high" ]] && priority=1 && shift
@@ -241,10 +244,15 @@ push() {
 
 # shorten the given URL using Shlink, an open-source URL Shortener
 # requires additional packages
-#   `apt install jq`
+#     `apt install jq`
 # requires additional configuration
-#   `echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash`
-#   `echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash`
+#     `echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash`
+#     `echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash`
+# API key can be generated from by running `bin/cli api-key:generate`
+# Usage:
+#     url-shorten <url>             Shortens the given URL, uses a randomized 4-letter slug
+#     url-shorten <url> <slug>      Shortens the given URL using the given slug
+#                                   If slug already exists, then it overwrites it
 url-shorten() {
     local url result short_url custom_slug
     local url="$1"
