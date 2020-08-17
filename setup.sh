@@ -12,7 +12,6 @@ existing dot files will be taken prior to copying this over.
 --git               install the git config file
 --help              print this help
 --readline          install the readline config file
---python            install the python config file
 --screen            install the screen config file
 --skip-existing     skip installing the dot file if it already exists locally
 --ssh               install the ssh config file
@@ -51,9 +50,6 @@ for arg in "$@"; do
     --skip-existing)
         SKIP_EXISTING=1
         ;;
-    --python)
-        INSTALL_PYTHON=1
-        ;;
     --screen)
         INSTALL_SCREEN=1
         ;;
@@ -90,7 +86,6 @@ if [[ $INSTALL_ALL == 1 ]] ; then
     INSTALL_FASD=1
     INSTALL_GIT=1
     INSTALL_READLINE=1
-    INSTALL_PYTHON=1
     INSTALL_SCREEN=1
     INSTALL_SSH=1
     INSTALL_TMUX=1
@@ -101,7 +96,6 @@ fi
 [[ $INSTALL_FASD == 1 ]] && SOURCE+=" $SRC_DIR/.fasdrc"
 [[ $INSTALL_GIT == 1 ]] && SOURCE+=" $SRC_DIR/.gitconfig"
 [[ $INSTALL_READLINE == 1 ]] && SOURCE+=" $SRC_DIR/.inputrc"
-[[ $INSTALL_PYTHON == 1 ]] && SOURCE+=" $SRC_DIR/.pythonrc"
 [[ $INSTALL_SCREEN == 1 ]] && SOURCE+=" $SRC_DIR/.screenrc"
 [[ $INSTALL_SSH == 1 ]] && SOURCE+=" $SRC_DIR/.ssh"
 [[ $INSTALL_TMUX == 1 ]] && SOURCE+=" $SRC_DIR/.tmux.conf"
@@ -112,7 +106,6 @@ if [[ $INSTALL_SSH == 1 ]]; then
     chmod 700 "$TARGET/.ssh"
     chmod 644 "$TARGET/.ssh/config"
 fi
-
 if [[ $INSTALL_VIM == 1 ]]; then
     # TODO: check for vim
     curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
