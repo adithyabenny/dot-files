@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+
+function print_usage_and_exit() {
+    echo "$USAGE"
+    exit ${1:-0}
+}
+
+function check_if_installed() {
+    if ! type -P "$1" 1>/dev/null ; then
+        "'$1' is not installed" >&2
+        exit 1
+    fi
+}
+
+
 BASENAME=$(basename "$0")
 USAGE="Usage: $BASENAME [OPTIONS]
 A wrapper script to install the dot files present in this repo. Backups for
@@ -18,12 +32,6 @@ existing dot files will be taken prior to copying this over.
 --tmux              install the tmux config file
 --vim               install the vim config files
 "
-
-print_usage_and_exit() {
-    echo "$USAGE"
-    exit ${1:-0}
-}
-
 for arg in "$@"; do
     case "$arg" in
     --all)
@@ -67,14 +75,13 @@ for arg in "$@"; do
         ;;
     esac
 done
-
 [[ $HELP == 1 || "$#" -eq 0 ]] && print_usage_and_exit
 
-# TODO: check for rsync
-# TODO: check for recursive clone
+
 # TODO: check for fd-find
 # TODO: check for fzf
-SRC_DIR="$(dirname "$0")"
+cd "$(dirname "$0")"
+git submodule update --init --recursive
 SOURCE=""
 TARGET="$HOME"
 EXCLUDE_FILES=""
@@ -91,23 +98,24 @@ if [[ $INSTALL_ALL == 1 ]] ; then
     INSTALL_TMUX=1
     INSTALL_VIM=1
 fi
-[[ $INSTALL_BASH == 1 ]] && SOURCE+=" $SRC_DIR/.bashrc $SRC_DIR/.bash_profile $SRC_DIR/.bash/*.bash"
-[[ $INSTALL_EDITLINE == 1 ]] && SOURCE+=" $SRC_DIR/.editrc"
-[[ $INSTALL_FASD == 1 ]] && SOURCE+=" $SRC_DIR/.fasdrc"
-[[ $INSTALL_GIT == 1 ]] && SOURCE+=" $SRC_DIR/.gitconfig"
-[[ $INSTALL_READLINE == 1 ]] && SOURCE+=" $SRC_DIR/.inputrc"
-[[ $INSTALL_SCREEN == 1 ]] && SOURCE+=" $SRC_DIR/.screenrc"
-[[ $INSTALL_SSH == 1 ]] && SOURCE+=" $SRC_DIR/.ssh"
-[[ $INSTALL_TMUX == 1 ]] && SOURCE+=" $SRC_DIR/.tmux.conf"
-[[ $INSTALL_VIM == 1 ]] && SOURCE+=" $SRC_DIR/.vimrc"
+[[ $INSTALL_BASH == 1 ]] && SOURCE+=" ./.bashrc ./.bash_profile ./.bash/*.bash"
+[[ $INSTALL_EDITLINE == 1 ]] && SOURCE+=" ./.editrc"
+[[ $INSTALL_FASD == 1 ]] && SOURCE+=" ./.fasdrc"
+[[ $INSTALL_GIT == 1 ]] && SOURCE+=" ./.gitconfig"
+[[ $INSTALL_READLINE == 1 ]] && SOURCE+=" ./.inputrc"
+[[ $INSTALL_SCREEN == 1 ]] && SOURCE+=" ./.screenrc"
+[[ $INSTALL_SSH == 1 ]] && SOURCE+=" ./.ssh"
+[[ $INSTALL_TMUX == 1 ]] && SOURCE+=" ./.tmux.conf"
+[[ $INSTALL_VIM == 1 ]] && SOURCE+=" ./.vimrc"
+check_if_installed "rsync"
 rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
-
 if [[ $INSTALL_SSH == 1 ]]; then
     chmod 700 "$TARGET/.ssh"
     chmod 644 "$TARGET/.ssh/config"
 fi
 if [[ $INSTALL_VIM == 1 ]]; then
-    # TODO: check for vim
+    check_if_installed "curl"
     curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    check_if_installed "vim"
     vim +PlugInstall +qall
 fi
