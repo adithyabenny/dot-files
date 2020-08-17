@@ -32,7 +32,7 @@ alias service='sudo service'
 # inspect system
 if [[ "$OSTYPE" == "linux"* ]] ; then
     alias osv='cat /etc/os-release'                                            # output Linux distribution
-    alias port='sudo netstat -tulpn'                                           # show all listening ports
+    alias port='sudo ss -tulpn'                                                # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
     alias osv='sw_vers'                                                        # output Mac system version
     alias port='sudo lsof -nP -i4 -iudp -itcp -stcp:listen | grep -v "\:\*"'   # show all IPv4 ports listening for connections
