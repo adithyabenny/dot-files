@@ -74,14 +74,29 @@ done
 
 [[ $HELP == 1 || "$#" -eq 0 ]] && print_usage_and_exit
 
+# TODO: check for rsync
+# TODO: check for recursive clone
+# TODO: check for fd-find
+# TODO: check for fzf
 SRC_DIR="$(dirname "$0")"
 SOURCE=""
 TARGET="$HOME"
-EXCLUDE_FILES="--exclude={*.swp,.git,.gitignore,README.md,setup.sh}"
+EXCLUDE_FILES=""
 [[ "$OSTYPE" != "darwin"* ]] && EXCLUDE_FILES+=" --exclude=mac.bash"
 [[ $SKIP_EXISTING == 1 ]] && OVERWRITE_SETTINGS="--ignore-existing" || OVERWRITE_SETTINGS="--backup --suffix=.bak"
-[[ $INSTALL_ALL == 1 ]] && SOURCE+=" $SRC_DIR/"
-[[ $INSTALL_BASH == 1 ]] && SOURCE+=" $SRC_DIR/{.bash,.bashrc,.bash_profile}"
+if [[ $INSTALL_ALL == 1 ]] ; then
+    INSTALL_BASH=1
+    INSTALL_EDITLINE=1
+    INSTALL_FASD=1
+    INSTALL_GIT=1
+    INSTALL_READLINE=1
+    INSTALL_PYTHON=1
+    INSTALL_SCREEN=1
+    INSTALL_SSH=1
+    INSTALL_TMUX=1
+    INSTALL_VIM=1
+fi
+[[ $INSTALL_BASH == 1 ]] && SOURCE+=" $SRC_DIR/.bashrc $SRC_DIR/.bash_profile $SRC_DIR/.bash/*.bash"
 [[ $INSTALL_EDITLINE == 1 ]] && SOURCE+=" $SRC_DIR/.editrc"
 [[ $INSTALL_FASD == 1 ]] && SOURCE+=" $SRC_DIR/.fasdrc"
 [[ $INSTALL_GIT == 1 ]] && SOURCE+=" $SRC_DIR/.gitconfig"
@@ -90,15 +105,16 @@ EXCLUDE_FILES="--exclude={*.swp,.git,.gitignore,README.md,setup.sh}"
 [[ $INSTALL_SCREEN == 1 ]] && SOURCE+=" $SRC_DIR/.screenrc"
 [[ $INSTALL_SSH == 1 ]] && SOURCE+=" $SRC_DIR/.ssh"
 [[ $INSTALL_TMUX == 1 ]] && SOURCE+=" $SRC_DIR/.tmux.conf"
-[[ $INSTALL_VIM == 1 ]] && SOURCE+=" $SRC_DIR/{.vim,.vimrc}"
-rsync -avzh --copy-links $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
+[[ $INSTALL_VIM == 1 ]] && SOURCE+=" $SRC_DIR/.vimrc"
+rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
 
-if [[ $INSTALL_ALL == 1 || $INSTALL_SSH == 1 ]]; then
+if [[ $INSTALL_SSH == 1 ]]; then
     chmod 700 "$TARGET/.ssh"
     chmod 644 "$TARGET/.ssh/config"
 fi
 
-if [[ $INSTALL_ALL == 1 || $INSTALL_VIM == 1 ]]; then
+if [[ $INSTALL_VIM == 1 ]]; then
+    # TODO: check for vim
     curl --silent -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     vim +PlugInstall +qall
 fi
