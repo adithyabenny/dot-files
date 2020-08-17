@@ -23,6 +23,7 @@ existing dot files will be taken prior to copying this over.
 --bash              install the bash dot files
 --editline          install the editline config file
 --fasd              install the fasd config file
+--fzf               install the fzf bash hooks
 --git               install the git config file
 --help              print this help
 --readline          install the readline config file
@@ -45,6 +46,9 @@ for arg in "$@"; do
         ;;
     --fasd)
         INSTALL_FASD=1
+        ;;
+    --fzf)
+        INSTALL_FZF=1
         ;;
     --git)
         INSTALL_GIT=1
@@ -78,19 +82,17 @@ done
 [[ $HELP == 1 || "$#" -eq 0 ]] && print_usage_and_exit
 
 
-# TODO: check for fd-find
-# TODO: check for fzf
 cd "$(dirname "$0")"
 git submodule update --init --recursive
 SOURCE=""
 TARGET="$HOME"
-EXCLUDE_FILES=""
-[[ "$OSTYPE" != "darwin"* ]] && EXCLUDE_FILES+=" --exclude=mac.bash"
+EXCLUDE_FILES="--exclude ./.bash/fzf.bindings.bash --exclude ./.bash/fzf.completion.bash"
 [[ $SKIP_EXISTING == 1 ]] && OVERWRITE_SETTINGS="--ignore-existing" || OVERWRITE_SETTINGS="--backup --suffix=.bak"
 if [[ $INSTALL_ALL == 1 ]] ; then
     INSTALL_BASH=1
     INSTALL_EDITLINE=1
     INSTALL_FASD=1
+    INSTALL_FZF=1
     INSTALL_GIT=1
     INSTALL_READLINE=1
     INSTALL_SCREEN=1
@@ -101,14 +103,21 @@ fi
 [[ $INSTALL_BASH == 1 ]] && SOURCE+=" ./.bashrc ./.bash_profile ./.bash/*.bash"
 [[ $INSTALL_EDITLINE == 1 ]] && SOURCE+=" ./.editrc"
 [[ $INSTALL_FASD == 1 ]] && SOURCE+=" ./.fasdrc"
+if [[ $INSTALL_FZF == 1 ]] ; then
+    check_if_installed "fzf"
+    EXCLUDE_FILES=""
+fi
 [[ $INSTALL_GIT == 1 ]] && SOURCE+=" ./.gitconfig"
 [[ $INSTALL_READLINE == 1 ]] && SOURCE+=" ./.inputrc"
 [[ $INSTALL_SCREEN == 1 ]] && SOURCE+=" ./.screenrc"
 [[ $INSTALL_SSH == 1 ]] && SOURCE+=" ./.ssh"
 [[ $INSTALL_TMUX == 1 ]] && SOURCE+=" ./.tmux.conf"
 [[ $INSTALL_VIM == 1 ]] && SOURCE+=" ./.vimrc"
+[[ "$OSTYPE" != "darwin"* ]] && EXCLUDE_FILES+=" --exclude=./.bash/mac.bash"
 check_if_installed "rsync"
 rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
+
+
 if [[ $INSTALL_SSH == 1 ]]; then
     chmod 700 "$TARGET/.ssh"
     chmod 644 "$TARGET/.ssh/config"
