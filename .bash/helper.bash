@@ -31,7 +31,7 @@ alias service='sudo service'
 
 # inspect system
 if [[ "$OSTYPE" == "linux"* ]] ; then
-    alias osv='cat /etc/*-release | sort | uniq'                               # output Linux distribution
+    alias osv='cat /etc/os-release'                                            # output Linux distribution
     alias port='sudo netstat -tulpn'                                           # show all listening ports
 elif [[ "$OSTYPE" == "darwin"* ]] ; then
     alias osv='sw_vers'                                                        # output Mac system version
