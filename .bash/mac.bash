@@ -8,6 +8,9 @@ export PATH="/usr/local/share/john/:$PATH"                                    # 
 
 export HOMEBREW_NO_ANALYTICS=1                                                # disable Homebrew Analytics
 
+# requires additional packages
+#     `brew install brightness`
+alias dark='brightness 0 2>/dev/null'                                         # set display brightness to 0
 alias gls='gls --color=auto'                                                  # export color scheme for GNU ls
 alias lck='pmset displaysleepnow'                                             # switch off display
 alias paste='gpaste'                                                          # use the GNU version by default
