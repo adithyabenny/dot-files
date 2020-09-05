@@ -52,7 +52,7 @@ alias watch='watch --color '
 
 # shortcut for geolocating IPs
 # requires additional packages
-#     `apt install geoip-bin geoip-database geoip-database-extra`
+#     `dnf install GeoIP GeoIP-GeoLite-data-extra`
 alias geo='geoiplookup'
 
 # converts an IP address to the AS number
@@ -114,7 +114,7 @@ asn() {
 
 # extract the contents of an archive
 # requires additional packages
-#     `apt install p7zip-full binutils cabextract xz-utils unrar-free`
+#     `dnf install binutils cabextract p7zip p7zip-plugins unrar xz`
 extract() {
     if [[ -f "$1" ]] ; then
         case "$1" in
@@ -244,7 +244,7 @@ push() {
 
 # shorten the given URL using Shlink, an open-source URL Shortener
 # requires additional packages
-#     `apt install jq`
+#     `dnf install jq`
 # requires additional configuration
 #     `echo "export URL_SHORTENER_ENDPOINT='<url-of-endpoint>'" >>~/.bash/private.bash`
 #     `echo "export URL_SHORTENER_API_KEY='<generated-api-key>'" >>~/.bash/private.bash`

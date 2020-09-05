@@ -22,6 +22,6 @@ shopt -s hostcomplete                            # tab-completion of hostnames a
 shopt -s nocaseglob                              # let file name expansions be case insensitive
 
 # requires additional packages
-#     `apt install fzf`
+#     `dnf install fzf`
 export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git"
 export FZF_DEFAULT_OPTS="--bind 'ctrl-a:select-all'"
