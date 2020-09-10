@@ -22,3 +22,5 @@ set mark-symlinked-directories on
 set revert-all-at-newline on
 # character denoting the filetype is appended when listing possible completions
 set visible-stats on
+# enable file name completion for files in symlinked directories
+set mark-symlinked-directories on
