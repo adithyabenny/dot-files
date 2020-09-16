@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+"""
+Requires additional dependencies:
+
+sudo dnf install -y curl fzf rsync tmux vim
+sudo curl -sS https://raw.githubusercontent.com/clvv/fasd/master/fasd -o /usr/local/bin/fasd
+"""
 
 function print_usage_and_exit() {
     echo "$USAGE"
