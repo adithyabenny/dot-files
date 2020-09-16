@@ -91,7 +91,6 @@ done
 cd "$(dirname "$0")"
 command git submodule update --init --recursive
 SOURCE=""
-TARGET="$HOME"
 EXCLUDE_FILES="--exclude ./.bash/fzf.bindings.bash --exclude ./.bash/fzf.completion.bash"
 [[ $SKIP_EXISTING == 1 ]] && OVERWRITE_SETTINGS="--ignore-existing" || OVERWRITE_SETTINGS="--backup --suffix=.bak"
 if [[ $INSTALL_ALL == 1 ]] ; then
@@ -121,12 +120,13 @@ fi
 [[ $INSTALL_VIM == 1 ]] && SOURCE+=" ./.vimrc"
 [[ "$OSTYPE" != "darwin"* ]] && EXCLUDE_FILES+=" --exclude=./.bash/mac.bash"
 check_if_installed "rsync"
-command rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$TARGET"
+command rsync -avzh --copy-links --relative $OVERWRITE_SETTINGS $EXCLUDE_FILES $SOURCE "$HOME"
 
 
 if [[ $INSTALL_SSH == 1 ]]; then
-    command chmod 700 "$TARGET/.ssh"
-    command chmod 644 "$TARGET/.ssh/config"
+    command chmod 700 "$HOME"
+    command chmod 700 "$HOME/.ssh"
+    command chmod 644 "$HOME/.ssh/config"
 fi
 if [[ $INSTALL_VIM == 1 ]]; then
     check_if_installed "curl"
