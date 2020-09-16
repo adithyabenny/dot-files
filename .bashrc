@@ -80,7 +80,7 @@ export INPUTRC="$HOME/.inputrc"
 export EDITOR="vim"
 
 # make less more friendly for non-text input files, see lesspipe(1)
-export LESSOPEN="|lesspipe %s"
+export LESSOPEN="|lesspipe.sh %s"
 # enable color support within less
 # search within less is case insensitive unless the pattern contains uppercase letters
 export LESS="-Ri"
