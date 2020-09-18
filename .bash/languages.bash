@@ -33,3 +33,6 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
     export PATH="$BREW_PREFIX/miniconda3/bin:$PATH"
 fi
 export PATH="$HOME/.local/bin:$PATH"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
