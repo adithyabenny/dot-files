@@ -33,7 +33,3 @@ elif [[ "$OSTYPE" == "darwin"* ]] ; then
     export PATH="$BREW_PREFIX/miniconda3/bin:$PATH"
 fi
 export PATH="$HOME/.local/bin:$PATH"
-
-# Ruby
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
