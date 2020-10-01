@@ -218,6 +218,22 @@ pipp() {
     command dig -6 AAAA $DIG_OPTS
 }
 
+# upload contents to Sprunge, a public pastebin
+# if no input is passed, then the contents of the clipboard will be used
+ppb() {
+    local content short_url
+    if [[ -p /dev/stdin ]] ; then
+        content="$(cat)"
+    elif [[ "$OSTYPE" == "darwin"* ]] ; then
+        content="$(pbpaste)"
+    else
+        return 2
+    fi
+    short_url="$(echo "$content" | curl -sS -F 'sprunge=<-' http://sprunge.us)"
+    echo "$short_url"
+    [[ "$OSTYPE" == "darwin"* ]] && echo -n "$short_url" | pbcopy
+}
+
 # send push notifications to your mobile device via the service Pushover
 # requires additional configuration
 #     `echo "export PUSHOVER_USER='<user>'" >>~/.bash/private.bash`
